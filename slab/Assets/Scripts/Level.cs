@@ -27,7 +27,7 @@ public class Level : MonoBehaviour {
 
 
 
-				levelTiles[row, col] = Random.Range(0, 2);
+				levelTiles[row, col] = Random.Range(0, 11);
 				if( levelTiles[row, col] == 1){
 					tiles[row, col] = (GameObject)Instantiate(tileSprite, new Vector3(row, col, 1), Quaternion.identity);
 				}
