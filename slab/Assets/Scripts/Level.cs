@@ -28,10 +28,15 @@ public class Level : MonoBehaviour {
 
 
 				levelTiles[row, col] = Random.Range(0, 11);
-				if( levelTiles[row, col] == 1){
+				if( levelTiles[row, col] == 1 || 
+				   	col == 0 || 
+				   	col + 1 == levelTiles.GetLength(COL) || 
+					row == 0 ||
+				   	row + 1 == levelTiles.GetLength(ROW))
+				{
 					tiles[row, col] = (GameObject)Instantiate(tileSprite, new Vector3(row, col, 1), Quaternion.identity);
 				}
-				Debug.Log(levelTiles[row, col]);
+				//Debug.Log(levelTiles[row, col]);
 			}
 		}
 	}

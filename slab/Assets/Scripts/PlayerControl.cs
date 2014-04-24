@@ -15,7 +15,7 @@ public class PlayerControl : MonoBehaviour
 	public float jumpForce = 1000f;			// Amount of force added when the player jumps.
 
 	private Transform groundCheck;			// A position marking where to check if the player is grounded.
-	private bool grounded = false;			// Whether or not the player is grounded.
+	private bool grounded = false;			// Whether or not the player is grounded
 	//private Animator anim;					// Reference to the player's animator component.
 
 
@@ -30,16 +30,22 @@ public class PlayerControl : MonoBehaviour
 	void Update()
 	{
 		// The player is grounded if a linecast to the groundcheck position hits anything on the ground layer.
-		grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));  
+		grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground")); 
 
 		// If the jump button is pressed and the player is grounded then the player should jump.
 		if(Input.GetButtonDown("Jump") && grounded)
 			jump = true;
+
+
+
 	}
 
+	
+	void FixedUpdate (){
 
-	void FixedUpdate ()
-	{
+
+
+
 		// Cache the horizontal input.
 		float h = Input.GetAxis("Horizontal");
 
@@ -48,7 +54,7 @@ public class PlayerControl : MonoBehaviour
 
 		// If the player is changing direction (h has a different sign to velocity.x) or hasn't reached maxSpeed yet...
 		if(h * rigidbody2D.velocity.x < maxSpeed)
-			// ... add a force to the player.
+			// ... add a force to the player
 			rigidbody2D.AddForce(Vector2.right * h * moveForce);
 
 		// If the player's horizontal velocity is greater than the maxSpeed...
@@ -65,9 +71,9 @@ public class PlayerControl : MonoBehaviour
 			// ... flip the player.
 			Flip();
 
+
 		// If the player should jump...
-		if(jump)
-		{
+		if(jump) {
 			// Set the Jump animator trigger parameter.
 			//anim.SetTrigger("Jump");
 
