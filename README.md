@@ -6,5 +6,5 @@ Random Level Builder that builds random levels for a 2D platformer game in Unity
 Chronoberry Builder
 ===================
 
-1. Create an N x N room 
-2. Create walls and exits
+1. Create an N x N room.
+2. Create walls and exits.
