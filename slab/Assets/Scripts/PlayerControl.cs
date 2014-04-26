@@ -8,6 +8,8 @@ public class PlayerControl : MonoBehaviour
 
 	public float moveForce = 365f;			// Amount of force added to move the player left and right.
 	public float maxSpeed = 5f;				// The fastest the player can travel in the x axis.
+	[HideInInspector]
+	public int treasureCount = 0;
 
 	//private Animator anim;					// Reference to the player's animator component.
 	
@@ -68,5 +70,12 @@ public class PlayerControl : MonoBehaviour
             Vector3 theScale = transform.localScale;
             theScale.x *= -1;
             transform.localScale = theScale;
+	}
+
+	public void pickupCollectible(string type) {
+		if (type == "Treasure") {
+			this.treasureCount += 1;
+			Debug.Log (this.treasureCount);
+		}
 	}
 }
