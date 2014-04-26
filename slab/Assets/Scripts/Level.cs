@@ -61,7 +61,7 @@ public class Level : MonoBehaviour {
 
     int randomFillTile() {
         int fill = 0;
-        int random = Random.Range (0, 10);
+        int random = Random.Range (0, 13);
         if (random < levelFill) {
                 fill = 1;
         }
@@ -70,7 +70,7 @@ public class Level : MonoBehaviour {
 
 	int randomFillChest() {
 		int fill = 0;
-		int random = Random.Range (1, 13);
+		int random = Random.Range (1, 11);
 		if (random < 2) {
 			fill = 1;
 		}
