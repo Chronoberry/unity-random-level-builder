@@ -12,13 +12,19 @@ public class PlayerControl : MonoBehaviour
 	public int treasureCount = 0;
 
 	//private Animator anim;					// Reference to the player's animator component.
+        private bool stunned = false;
+        private float stunDuration;
+        private float oldMass = 0;
+        private ParticleSystem ps;
 	
 	void Awake(){
             // Setting up references.
             //anim = GetComponent<Animator>();
+            ps = GetComponent<ParticleSystem>();
 	}
 
 	void Update(){
+            checkForStun(); 
 
 	}
 	
@@ -26,6 +32,20 @@ public class PlayerControl : MonoBehaviour
             // Cache the horizontal input.
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
+
+            //Handle being stunned
+            if(stunned){
+                h = 0f;
+                v = 0f;
+                if(oldMass == 0){
+                    oldMass = rigidbody2D.mass;
+                } else {
+                    rigidbody2D.mass = 100;
+                }
+            }
+                    
+
+                
 
             // The Speed animator parameter is set to the absolute value of the horizontal input.
             //anim.SetFloat("Speed", Mathf.Abs(h));
@@ -71,6 +91,25 @@ public class PlayerControl : MonoBehaviour
             theScale.x *= -1;
             transform.localScale = theScale;
 	}
+
+        public void checkForStun(){
+            if(stunned) {
+                if(stunDuration < 0){
+                    stunned = false;
+                    rigidbody2D.mass = oldMass;
+                    oldMass = 0;
+                    ps.Stop();
+                } else {
+                    stunDuration -= Time.deltaTime;
+                    ps.Emit(100);
+                }
+            }
+        }
+
+        public void stunPlayer(float duration){
+            stunned = true;
+            stunDuration = duration;
+        }
 
 	public void pickupCollectible(string type) {
 		if (type == "Treasure") {
