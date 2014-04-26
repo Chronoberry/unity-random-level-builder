@@ -10,6 +10,8 @@ public class PlayerControl : MonoBehaviour
 	public float maxSpeed = 5f;				// The fastest the player can travel in the x axis.
 	[HideInInspector]
 	public int treasureCount = 0;
+	[HideInInspector]
+	public int score = 0;
 
 	//private Animator anim;					// Reference to the player's animator component.
         private bool stunned = false;
@@ -115,6 +117,13 @@ public class PlayerControl : MonoBehaviour
 		if (type == "Treasure") {
 			this.treasureCount += 1;
 			Debug.Log (this.treasureCount);
+		}
+	}
+	public void dropOffCollectibles() {
+		if (this.treasureCount > 0) {
+			this.score += this.treasureCount;
+			this.treasureCount =0;
+			Debug.Log (this.score);
 		}
 	}
 }
