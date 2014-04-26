@@ -101,7 +101,7 @@ public class PlayerControl : MonoBehaviour
                     ps.Stop();
                 } else {
                     stunDuration -= Time.deltaTime;
-                    ps.Emit(100);
+                    ps.Emit(10);
                 }
             }
         }
