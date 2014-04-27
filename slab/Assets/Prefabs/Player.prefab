@@ -46,7 +46,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 12c4912de0f9a3a4ba15bbfdbdfe1603, type: 2}
+  - {fileID: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   valid: 1
-  skeletonDataAsset: {fileID: 11400000, guid: 51230efc424549f4b94c5b7f28b70028, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 9f237459bdde9f74eb18b1142bb4af3d, type: 2}
   initialSkinName: default
   calculateNormals: 1
   calculateTangents: 0
