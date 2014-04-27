@@ -31,7 +31,7 @@ public class Boat : MonoBehaviour {
     }
 
     void spawnPlayer(){
-        Vector3 playerStartPosition = new Vector3( transform.position.x, transform.position.y - 1, 0f);
+        Vector3 playerStartPosition = new Vector3( transform.position.x, transform.position.y - 2, 0f);
         player = (GameObject)Instantiate( player, playerStartPosition, Quaternion.identity);
     }
 

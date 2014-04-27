@@ -9,11 +9,11 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 212: {fileID: 21200000}
-  - 61: {fileID: 6100004}
-  - 61: {fileID: 6100002}
   - 61: {fileID: 6100000}
+  - 61: {fileID: 6100002}
+  - 61: {fileID: 6100004}
   m_Layer: 20
-  m_Name: TestTile
+  m_Name: Transparent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,10 +37,10 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
-  m_Material: {fileID: 6200000, guid: f9f95a68af72a4bd3854fbcee4e9293f, type: 2}
+  m_Material: {fileID: 6200000, guid: e145096871dd0421485600e5c9835e5f, type: 2}
   m_IsTrigger: 0
-  m_Size: {x: .280000001, y: 1}
-  m_Center: {x: -.400000006, y: -.00999999978}
+  m_Size: {x: 1, y: 1}
+  m_Center: {x: 0, y: 0}
 --- !u!61 &6100002
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -59,10 +59,10 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
-  m_Material: {fileID: 6200000, guid: e145096871dd0421485600e5c9835e5f, type: 2}
+  m_Material: {fileID: 6200000, guid: f9f95a68af72a4bd3854fbcee4e9293f, type: 2}
   m_IsTrigger: 0
-  m_Size: {x: 1, y: 1}
-  m_Center: {x: 0, y: 0}
+  m_Size: {x: .280000001, y: 1}
+  m_Center: {x: -.400000006, y: -.00999999978}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: 03041fa36909543dab910c6d77e58cec, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bd290eb8858c04adc93eae349ae9df36, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
