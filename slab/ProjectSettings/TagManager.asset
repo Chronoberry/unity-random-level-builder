@@ -8,6 +8,7 @@ TagManager:
   - Treasure
   - Food
   - 
+  - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
   Builtin Layer 2: Ignore Raycast

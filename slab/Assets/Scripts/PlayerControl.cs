@@ -37,7 +37,6 @@ public class PlayerControl : MonoBehaviour
 	}
 
 	void Update(){
-            score = 0;
             checkForStun(); 
             checkForBonus();
 	}
