@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class CameraFollow : MonoBehaviour 
 {
@@ -10,7 +11,6 @@ public class CameraFollow : MonoBehaviour
 	public Vector2 maxXAndY;		// The maximum x and y coordinates the camera can have.
 	public Vector2 minXAndY;		// The minimum x and y coordinates the camera can have.
 
-
 	private Transform player;		// Reference to the player's transform.
 
 
@@ -20,9 +20,14 @@ public class CameraFollow : MonoBehaviour
 	}
 
 
-	bool CheckXMargin(){
-            // Returns true if the distance between the camera and the player in the x axis is greater than the x margin.
-            return Mathf.Abs(transform.position.x - player.position.x) > xMargin;
+	bool CheckXMargin() {
+		try {
+			// Returns true if the distance between the camera and the player in the x axis is greater than the x margin.
+			return Mathf.Abs(transform.position.x - player.position.x) > xMargin;
+		}
+		catch (NullReferenceException e) {
+			return false;
+		}	
 	}
 
 
@@ -38,8 +43,14 @@ public class CameraFollow : MonoBehaviour
 	
 	
 	void TrackPlayer (){
-            if(player == null)
-                player = GameObject.FindGameObjectWithTag("Player").transform;
+            if (player == null) {
+				try {
+					player = GameObject.FindGameObjectWithTag ("Player").transform;
+				}
+				catch (NullReferenceException e) {
+					return;
+				}	
+			}
                 
             // By default the target x and y coordinates of the camera are it's current x and y coordinates.
             float targetX = transform.position.x;

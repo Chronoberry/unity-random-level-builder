@@ -7,16 +7,14 @@ public class CollectableCollision : MonoBehaviour {
         private PlayerControl player;
 
 	void OnCollisionEnter2D(Collision2D col){
-            Debug.Log (col.gameObject.tag);
-            if (col.gameObject.tag == "Player"){
-                player = col.gameObject.GetComponent<PlayerControl>();
-                player.pickupCollectible(this.gameObject);
-                followPlayer = true;
-                Destroy(rigidbody2D);
-                Destroy(this.collider2D);
-                
-                //Destroy(this.gameObject);
-            }
+         
+        if (col.gameObject.tag == "Player"){
+        	player = col.gameObject.GetComponent<PlayerControl>();
+            player.pickupCollectible(this.gameObject);
+            followPlayer = true;
+            Destroy(rigidbody2D);
+            Destroy(this.collider2D);
+         }
 	}
 	// Use this for initialization
 	void Start () {

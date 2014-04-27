@@ -43,7 +43,7 @@ public class Level : MonoBehaviour {
 				else if(levelTiles[row, col] == TRANSPARENT_TILE) {
 					tiles[row, col] = (GameObject)Instantiate(transparentSprite, new Vector3(row, col, 1), Quaternion.identity);
 				}
-				if(randomFillChest() == 1 && currentChests < maxChests && col !=0 && levelTiles[row, col+1] != FILLED_TILE) {
+				if(randomFillChest() == 1 && currentChests < maxChests && col != levelHeight && levelTiles[row, col+1] != FILLED_TILE) {
 					treasureChest = (GameObject)Instantiate(treasureChest, new Vector3(row, col+1, 1), Quaternion.identity);
 					currentChests += 1;
 				}
