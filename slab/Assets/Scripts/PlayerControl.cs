@@ -178,6 +178,7 @@ public class PlayerControl : MonoBehaviour
         }
 
         public void takeDamage(int damage){
+	    Messenger.Broadcast("take damage");
             currentHealth -= damage;
         }
 

@@ -7,6 +7,13 @@ TagManager:
   - Boat
   - Treasure
   - Food
+  - Background
+  - LevelBuilder
+  - Tile
+  - 
+  - 
+  - HealthBar
+  - Enemy
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

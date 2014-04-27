@@ -2,8 +2,9 @@
 using System.Collections;
 
 public class Level : MonoBehaviour {
-    public int levelWidth = 3;
-    public int levelHeight = 3;
+	public int levelNumber = 0;
+	public int levelWidth = 5;
+    public int levelHeight = 5;
     public int levelFill = 1;
 
     public int tileWidth = 128;
@@ -12,10 +13,11 @@ public class Level : MonoBehaviour {
     public GameObject tileSprite;
 	public GameObject transparentSprite;
     public GameObject boat; 
-    public GameObject treasureChest; 
-    public int maxChests = 4;
+    public GameObject rubberDuck; 
+	public GameObject background;
+    public int maxDucks = 4;
 
-    private int currentChests = 0;
+    private int currentDucks = 0;
     private int[,] levelTiles;
     private GameObject[,] tiles;
     private const int EMPTY_TILE = 0;
@@ -24,32 +26,75 @@ public class Level : MonoBehaviour {
 
 
     void Start() {
-        //Setup boat and player spawn points
-        Vector3 boatStartPosition = new Vector3( levelWidth * 0.5f, levelHeight - 1, 0f);
-        boat = (GameObject)Instantiate( boat, boatStartPosition, Quaternion.identity);
-        
-        //Create the level
-        levelTiles = new int[levelWidth, levelHeight];
-        levelTiles = TemplateLevel();
-        tiles = new GameObject[levelWidth, levelHeight];
-        for (int col = 0; col < levelHeight; col++) {
-            for(int row = 0; row < levelWidth; row++){
+		transform.position = new Vector3(-(levelWidth/2.0f), -(float)2*levelHeight, 0f);
+        // Setup background, level, boat and player spawn points
+		SpawnBackground();
+		SpawnBoat();	
+		SpawnLevel();
+
+		// Setup event listener to level up
+		Messenger.AddListener("level up", LevelUp);
+    }
+	
+	void LevelUp() {
+		levelNumber++;
+		levelWidth += Random.Range (1, 4);
+		levelHeight += Random.Range (1, 4);
+		DestroyAll();
+		SpawnBackground ();
+		SpawnLevel();
+                MoveBoat();
+		Messenger.AddListener("level up", LevelUp);
+	}
+
+	void SpawnBackground() {
+		Vector3 backgroundPosition = new Vector3(levelWidth * 0.5f, levelHeight-1.5f, 0f);
+		background = (GameObject)Instantiate(background, backgroundPosition, Quaternion.identity);
+	}
+
+	void SpawnBoat() {
+		Vector3 boatStartPosition = new Vector3(levelWidth * 0.5f, levelHeight-1, 0f);
+		Debug.Log (boatStartPosition);
+		boat = (GameObject)Instantiate(boat, boatStartPosition, Quaternion.identity);
+	}
+
+        void MoveBoat(){
+	    Vector3 boatStartPosition = new Vector3(levelWidth * 0.5f, levelHeight-1, 0f);
+            boat.transform.position = boatStartPosition; 
+        }
+
+	void SpawnLevel() {
+		//Create the level
+		maxDucks = (levelNumber + 1) * 2;
+		levelFill = Mathf.CeilToInt (levelNumber / 10);
+		levelTiles = new int[levelWidth, levelHeight];
+		levelTiles = TemplateLevel();
+		tiles = new GameObject[levelWidth, levelHeight];
+		for (int col = 0; col < levelHeight; col++) {
+			for(int row = 0; row < levelWidth; row++) {
+				// Randomly mark tile as filled
 				if(levelTiles[row, col] != FILLED_TILE && levelTiles[row, col] != TRANSPARENT_TILE) {
-                    levelTiles[row, col] = randomFillTile ();
-                }
+					levelTiles[row, col] = randomFillTile ();
+				}
+				// Create game objects for each filled tile
 				if(levelTiles[row, col] == FILLED_TILE) {
-                    tiles[row, col] = (GameObject)Instantiate(tileSprite, new Vector3(row, col, 1), Quaternion.identity);
-                }
+					tiles[row, col] = (GameObject)Instantiate(tileSprite, new Vector3(row, col, 1), Quaternion.identity);
+				}
 				else if(levelTiles[row, col] == TRANSPARENT_TILE) {
 					tiles[row, col] = (GameObject)Instantiate(transparentSprite, new Vector3(row, col, 1), Quaternion.identity);
 				}
-				if(randomFillChest() == 1 && currentChests < maxChests && col != levelHeight && levelTiles[row, col+1] != FILLED_TILE) {
-					treasureChest = (GameObject)Instantiate(treasureChest, new Vector3(row, col+1, 1), Quaternion.identity);
-					currentChests += 1;
+				// Randomly spawn rubber ducks
+				if(randomSpawnDucks() &&
+				   currentDucks < maxDucks &&
+				   levelTiles[row, col] != FILLED_TILE &&
+				   levelTiles[row, col] != TRANSPARENT_TILE)
+				{
+					rubberDuck = (GameObject)Instantiate(rubberDuck, new Vector3(row, col, 1), Quaternion.identity);
+					currentDucks += 1;
 				}
-            }
-        }
-    }
+			}
+		}
+	}
 
     int[,] TemplateLevel() {
         int[,] levelTemplate = new int[levelWidth, levelHeight];
@@ -73,13 +118,29 @@ public class Level : MonoBehaviour {
         return fill;
     }
 
-	int randomFillChest() {
-		int fill = 0;
-		int random = Random.Range(0, 20);
+	bool randomSpawnDucks() {
+		bool spawn = false;
+		int random = Random.Range(0, levelNumber+1);
 		if (random < 1) {
-			fill = 1;
+			spawn = true;
 		}
-		return fill;
+		return spawn;
+	}
+
+	void DestroyAll() {
+		object[] allObjects = Resources.FindObjectsOfTypeAll(typeof(GameObject)) ;
+		foreach (object thisObject in allObjects) {
+			if (((GameObject)thisObject).activeInHierarchy) {
+				if (((GameObject)thisObject).tag != "LevelBuilder" && 
+				    ((GameObject)thisObject).tag != "MainCamera" &&
+				    ((GameObject)thisObject).tag != "Player" && 
+				    ((GameObject)thisObject).tag != "Boat")
+				{
+					//Debug.Log(((GameObject)thisObject).tag);
+					Destroy((GameObject)thisObject);
+				}
+			}
+		}
 	}
 
     public int getLevelHeight() {

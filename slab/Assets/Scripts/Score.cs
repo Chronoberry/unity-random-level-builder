@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class Score : MonoBehaviour {
@@ -12,8 +13,14 @@ public class Score : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-            if(player == null)
-                player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
+            if (player == null) {
+				try {
+					player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerControl> ();
+				}
+				catch (Exception e) {
+					;
+				}
+			}
 
             guiText.text = "Score : " + player.getScore();
 	}
