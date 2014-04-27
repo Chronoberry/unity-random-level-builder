@@ -50,6 +50,7 @@ MonoBehaviour:
   rubberDuck: {fileID: 100000, guid: 9876d471111f34d26935f043c0f44bd0, type: 2}
   background: {fileID: 100000, guid: 99fba1b3228c9457a8ddfbc8e1e99910, type: 2}
   maxDucks: 4
+
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

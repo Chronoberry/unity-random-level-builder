@@ -11,12 +11,14 @@ public class FollowPlayer : MonoBehaviour
 	void Awake ()
 	{
 		// Setting up the reference.
-		player = GameObject.FindGameObjectWithTag("Player").transform;
 	}
 
 	void Update ()
 	{
+                if(player == null)
+		    player = GameObject.FindGameObjectWithTag("Player").transform;
 		// Set the position to the player's position with the offset.
 		transform.position = player.position + offset;
+            
 	}
 }

@@ -4,16 +4,20 @@ using System.Collections;
 public class OctoObstacle : MonoBehaviour {
 
     public float stunDuration = 2000f;
+    public int damage = 10;
+    private ParticleSystem ps;
 
-    void OnCollisionEnter2D(Collision2D col) {
+    void OnTriggerEnter2D(Collider2D col) {
         if (col.gameObject.tag == "Player") {
             col.gameObject.GetComponent<PlayerControl>().stunPlayer(stunDuration);
-            col.gameObject.GetComponent<PlayerControl>().takeDamage(10);
+            col.gameObject.GetComponent<PlayerControl>().takeDamage(damage);
+            ps.Emit(100);
         }
     }
     // Use this for initialization
     void Start () {
     
+        ps = GetComponent<ParticleSystem>();
     }
     
     // Update is called once per frame

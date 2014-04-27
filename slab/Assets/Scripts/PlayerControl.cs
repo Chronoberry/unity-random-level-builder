@@ -19,13 +19,18 @@ public class PlayerControl : MonoBehaviour
         private bool stunned = false;
         private float stunDuration;
         private float oldMass = 0;
-        private ParticleSystem ps;
         private List<GameObject> treasureChests;
         private List<GameObject> food;
 	private int currentHealth;
 
+        //Player bonus
+        private int currentBonus = 0;
+        private int nextBonus = 5;
+        private float maxBonusDuration = 4f;
+        private float bonusDuration = 4f;
+        private bool hasBonus = false;
+
 	void Awake(){
-            ps = GetComponent<ParticleSystem>();
             treasureChests = new List<GameObject>();
             food = new List<GameObject>();
             currentHealth = maxHealth;
@@ -33,10 +38,11 @@ public class PlayerControl : MonoBehaviour
 
 	void Update(){
             checkForStun(); 
+            checkForBonus();
 	}
 	
 	void FixedUpdate (){
-            // Cache the horizontal input.
+           // Cache the horizontal input.
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
 
@@ -50,8 +56,9 @@ public class PlayerControl : MonoBehaviour
                     rigidbody2D.mass = 100;
                 }
             }
-                    
-            maxSpeed = 1.25f * Mathf.Pow(.85f , getTreasureCount());   
+
+            if(!hasBonus)                    
+                maxSpeed = 1.25f * Mathf.Pow(.85f , getTreasureCount());   
 
             // If the player is changing direction (h has a different sign to velocity.x) or hasn't reached maxSpeed yet...
             if(h * rigidbody2D.velocity.x < maxSpeed) {
@@ -101,10 +108,30 @@ public class PlayerControl : MonoBehaviour
                     stunned = false;
                     rigidbody2D.mass = oldMass;
                     oldMass = 0;
-                    ps.Stop();
                 } else {
                     stunDuration -= Time.deltaTime;
-                    ps.Emit(10);
+                }
+            }
+        }
+
+        public void checkForBonus(){
+            if(currentBonus >= nextBonus){
+                //Reset the current bonus, set the bonus state, increase next bonus
+                currentBonus = 0;
+                hasBonus = true;
+                nextBonus += Random.Range(1, 6);
+                maxBonusDuration += 1f;
+                bonusDuration = maxBonusDuration;
+                maxSpeed = maxSpeed * 3;
+            }
+ 
+            if(hasBonus){
+                if(bonusDuration < 0){
+                    hasBonus = false;
+                    maxSpeed = maxSpeed  / 3;
+                } else {
+                    bonusDuration -= Time.deltaTime;
+
                 }
             }
         }
@@ -114,15 +141,10 @@ public class PlayerControl : MonoBehaviour
             stunDuration = duration;
         }
 
-	public void pickupCollectible(string type) {
-            if (type == "Treasure") {
-                this.treasureCount += 1;
-            }
-	}
-
         public void pickupCollectible(GameObject collectible){
             if (collectible.tag == "Treasure"){
                 treasureChests.Add(collectible);
+                currentBonus += 1; 
             } 
             if (collectible.tag == "Food"){
                 food.Add(collectible);
@@ -147,6 +169,14 @@ public class PlayerControl : MonoBehaviour
             }
 	}
 
+        public int getCurrentBonusCount(){
+            return currentBonus;
+        }
+
+        public int getNextBonusRequirement(){
+            return nextBonus;
+        }
+
         public void takeDamage(int damage){
             currentHealth -= damage;
         }
@@ -157,6 +187,9 @@ public class PlayerControl : MonoBehaviour
 
         public int getCurrentHealth(){
             return currentHealth;
+        }
 
+        public int getScore(){
+            return score;
         }
 }
