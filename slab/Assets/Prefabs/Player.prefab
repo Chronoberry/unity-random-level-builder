@@ -100,10 +100,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   facingRight: 1
-  moveForce: 35
-  maxSpeed: 1.25
   treasureCount: 0
   score: 0
+  moveForce: 35
+  maxSpeed: 1.25
+  maxHealth: 100
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -298,7 +299,7 @@ ParticleSystem:
         rgba: 4294967295
       maxColor:
         serializedVersion: 2
-        rgba: 4288610303
+        rgba: 2434925343
       minMaxState: 0
     startSize:
       scalar: 1

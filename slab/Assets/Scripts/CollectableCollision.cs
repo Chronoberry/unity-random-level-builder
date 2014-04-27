@@ -5,6 +5,7 @@ public class CollectableCollision : MonoBehaviour {
 
         private bool followPlayer = false;
         private PlayerControl player;
+        private ParticleSystem ps;
 
 	void OnCollisionEnter2D(Collision2D col){
          
@@ -14,10 +15,12 @@ public class CollectableCollision : MonoBehaviour {
             followPlayer = true;
             Destroy(rigidbody2D);
             Destroy(this.collider2D);
+            ps.Stop();
          }
 	}
 	// Use this for initialization
 	void Start () {
+            ps = GetComponent<ParticleSystem>();
 	
 	}
 
@@ -26,6 +29,8 @@ public class CollectableCollision : MonoBehaviour {
     
             if(followPlayer){
                 transform.position = player.transform.position;
+            } else {
+                ps.Emit(2);
             }
 	
 	}
