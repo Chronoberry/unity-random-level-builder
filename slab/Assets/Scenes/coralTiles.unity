@@ -161,7 +161,7 @@ MonoBehaviour:
   tileSprite: {fileID: 100000, guid: 2158e200103d046f7a0e0046dc23fdc5, type: 2}
   transparentSprite: {fileID: 100000, guid: 1101821ae47b7408cb2dcb7c1b275654, type: 2}
   boat: {fileID: 100000, guid: 496222f2326575b46893ac83cca4180d, type: 2}
-  treasureChest: {fileID: 100000, guid: 46968bfc9172e124a9eaa0c889544c2f, type: 2}
+  treasureChest: {fileID: 100000, guid: 9876d471111f34d26935f043c0f44bd0, type: 2}
   maxChests: 4
 --- !u!4 &222614946
 Transform:
@@ -212,7 +212,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: 9952afa7055b0774eb3c2f613f44781c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c27326ea1939f43e3970297e6bdafe2e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &235217058
 Transform:
@@ -222,7 +222,7 @@ Transform:
   m_GameObject: {fileID: 235217056}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5, y: 2.0999999, z: 10}
-  m_LocalScale: {x: .0799999982, y: .0799999982, z: 1}
+  m_LocalScale: {x: .400000006, y: .400000006, z: 1}
   m_Children: []
   m_Father: {fileID: 511356793}
 --- !u!1 &291700793
@@ -540,6 +540,19 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 21200004, guid: 6c919d6414a3e4b47b9d17f185599b6d, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c27326ea1939f43e3970297e6bdafe2e,
+        type: 3}
+    - target: {fileID: 400006, guid: 6c919d6414a3e4b47b9d17f185599b6d, type: 2}
+      propertyPath: m_LocalScale.x
+      value: .400000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 6c919d6414a3e4b47b9d17f185599b6d, type: 2}
+      propertyPath: m_LocalScale.y
+      value: .400000006
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6c919d6414a3e4b47b9d17f185599b6d, type: 2}
   m_RootGameObject: {fileID: 511356792}
@@ -592,6 +605,10 @@ Prefab:
       propertyPath: MAX_CHESTS
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d055b93646f7dbb4685d4d159837c544, type: 2}
+      propertyPath: treasureChest
+      value: 
+      objectReference: {fileID: 100000, guid: 9876d471111f34d26935f043c0f44bd0, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d055b93646f7dbb4685d4d159837c544, type: 2}
   m_RootGameObject: {fileID: 222614944}
