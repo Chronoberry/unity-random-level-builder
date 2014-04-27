@@ -11,11 +11,14 @@ public class Level : MonoBehaviour {
 
     public GameObject tileSprite;
     public GameObject boat; 
+    public GameObject treasureChest; 
     
+	private int currentChests = 0;
     private int[,] levelTiles;
     private GameObject[,] tiles;
     private const int EMPTY_TILE = 0;
     private const int FILLED_TILE = 1;
+	private const int MAX_CHESTS = 4;
 
 
     void Start() {
@@ -35,6 +38,10 @@ public class Level : MonoBehaviour {
                 if(levelTiles[row, col] == 1) {
                     tiles[row, col] = (GameObject)Instantiate(tileSprite, new Vector3(row, col, 1), Quaternion.identity);
                 }
+				if(randomFillChest() == 1 && currentChests < MAX_CHESTS && col !=0 && levelTiles[row,col-1] != 1) {
+			        treasureChest = (GameObject)Instantiate( treasureChest, new Vector3(row,col-1,0f), Quaternion.identity);
+					currentChests += 1;
+				}
             }
         }
     }
@@ -54,12 +61,21 @@ public class Level : MonoBehaviour {
 
     int randomFillTile() {
         int fill = 0;
-        int random = Random.Range (0, 10);
+        int random = Random.Range (0, 13);
         if (random < levelFill) {
                 fill = 1;
         }
         return fill;
     }
+
+	int randomFillChest() {
+		int fill = 0;
+		int random = Random.Range (1, 11);
+		if (random < 2) {
+			fill = 1;
+		}
+		return fill;
+	}
 
     public int getLevelHeight() {
         return this.levelHeight;
