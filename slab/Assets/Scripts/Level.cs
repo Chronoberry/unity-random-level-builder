@@ -42,8 +42,9 @@ public class Level : MonoBehaviour {
 		levelHeight += Random.Range (1, 4);
 		DestroyAll();
 		SpawnBackground ();
-		SpawnBoat();
 		SpawnLevel();
+                MoveBoat();
+		Messenger.AddListener("level up", LevelUp);
 	}
 
 	void SpawnBackground() {
@@ -56,6 +57,11 @@ public class Level : MonoBehaviour {
 		Debug.Log (boatStartPosition);
 		boat = (GameObject)Instantiate(boat, boatStartPosition, Quaternion.identity);
 	}
+
+        void MoveBoat(){
+	    Vector3 boatStartPosition = new Vector3(levelWidth * 0.5f, levelHeight-1, 0f);
+            boat.transform.position = boatStartPosition; 
+        }
 
 	void SpawnLevel() {
 		//Create the level
@@ -122,11 +128,13 @@ public class Level : MonoBehaviour {
 	}
 
 	void DestroyAll() {
-		object[] allObjects = FindObjectsOfTypeAll(typeof(GameObject)) ;
+		object[] allObjects = Resources.FindObjectsOfTypeAll(typeof(GameObject)) ;
 		foreach (object thisObject in allObjects) {
 			if (((GameObject)thisObject).activeInHierarchy) {
 				if (((GameObject)thisObject).tag != "LevelBuilder" && 
-				    ((GameObject)thisObject).tag != "MainCamera")
+				    ((GameObject)thisObject).tag != "MainCamera" &&
+				    ((GameObject)thisObject).tag != "Player" && 
+				    ((GameObject)thisObject).tag != "Boat")
 				{
 					//Debug.Log(((GameObject)thisObject).tag);
 					Destroy((GameObject)thisObject);

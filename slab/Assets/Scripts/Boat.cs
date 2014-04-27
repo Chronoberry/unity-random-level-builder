@@ -9,12 +9,16 @@ public class Boat : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D col){
         if (col.gameObject.tag == "Player"){
             col.gameObject.GetComponent<PlayerControl>().dropOffCollectibles();
-			Messenger.Broadcast("level up");
+	    Messenger.Broadcast("level up");
         }
     }
     // Use this for initialization
     void Start () {
+    }
+
+    void Awake() {
         spawnPlayer();
+
     }
     
     // Update is called once per frame
@@ -31,7 +35,6 @@ public class Boat : MonoBehaviour {
 
     void spawnPlayer(){
         Vector3 playerStartPosition = new Vector3(transform.position.x, transform.position.y-2, 0f);
-		Debug.Log (playerStartPosition);
         player = (GameObject)Instantiate(player, playerStartPosition, Quaternion.identity);
     }
 
