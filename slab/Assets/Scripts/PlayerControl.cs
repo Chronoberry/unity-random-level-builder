@@ -102,59 +102,58 @@ public class PlayerControl : MonoBehaviour
             transform.localScale = theScale;
 	}
 
-        public void checkForStun(){
-            if(stunned) {
-                if(stunDuration < 0){
-                    stunned = false;
-                    rigidbody2D.mass = oldMass;
-                    oldMass = 0;
-                } else {
-                    stunDuration -= Time.deltaTime;
-                }
-            }
-        }
+	public void checkForStun(){
+	    if(stunned) {
+	        if(stunDuration < 0){
+	            stunned = false;
+	            rigidbody2D.mass = oldMass;
+	            oldMass = 0;
+	        } else {
+	            stunDuration -= Time.deltaTime;
+	        }
+	    }
+	}
 
-        public void checkForBonus(){
-            if(currentBonus >= nextBonus){
-                //Reset the current bonus, set the bonus state, increase next bonus
-                currentBonus = 0;
-                hasBonus = true;
-                nextBonus += Random.Range(1, 6);
-                maxBonusDuration += 1f;
-                bonusDuration = maxBonusDuration;
-                maxSpeed = maxSpeed * 3;
-            }
- 
-            if(hasBonus){
-                if(bonusDuration < 0){
-                    hasBonus = false;
-                    maxSpeed = maxSpeed  / 3;
-                } else {
-                    bonusDuration -= Time.deltaTime;
+	public void checkForBonus(){
+	    if(currentBonus >= nextBonus){
+	        //Reset the current bonus, set the bonus state, increase next bonus
+	        currentBonus = 0;
+	        hasBonus = true;
+	        nextBonus += Random.Range(1, 6);
+	        maxBonusDuration += 1f;
+	        bonusDuration = maxBonusDuration;
+	        maxSpeed = maxSpeed * 3;
+	    }
 
-                }
-            }
-        }
+	    if(hasBonus){
+	        if(bonusDuration < 0){
+	            hasBonus = false;
+	            maxSpeed = maxSpeed  / 3;
+	        } else {
+	            bonusDuration -= Time.deltaTime;
 
-        public void stunPlayer(float duration){
-            stunned = true;
-            stunDuration = duration;
-        }
+	        }
+	    }
+	}
 
-        public void pickupCollectible(GameObject collectible){
-            if (collectible.tag == "Treasure"){
-                treasureChests.Add(collectible);
-                currentBonus += 1; 
-            } 
-            if (collectible.tag == "Food"){
-                food.Add(collectible);
-            }
+	public void stunPlayer(float duration){
+	    stunned = true;
+	    stunDuration = duration;
+	}
 
-        }
-        public int getTreasureCount(){
-            return treasureChests.Count;
-        }
+	public void pickupCollectible(GameObject collectible){
+	    if (collectible.tag == "Treasure"){
+	        treasureChests.Add(collectible);
+	        currentBonus += 1; 
+	    } 
+	    if (collectible.tag == "Food"){
+	        food.Add(collectible);
+	    }
 
+	}
+	public int getTreasureCount(){
+	    return treasureChests.Count;
+	}
 
 	public void dropOffCollectibles() {
             if (getTreasureCount() > 0) {

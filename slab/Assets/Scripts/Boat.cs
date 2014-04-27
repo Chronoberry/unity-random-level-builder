@@ -7,9 +7,11 @@ public class Boat : MonoBehaviour {
 
     //Check for collision with the player
     void OnCollisionEnter2D(Collision2D col){
-        if (col.gameObject.tag == "Player"){
+        if (col.gameObject.tag == "Player") {
+			if (col.gameObject.GetComponent<PlayerControl>().getTreasureCount() > 0) {
+				Messenger.Broadcast("level up");
+			}
             col.gameObject.GetComponent<PlayerControl>().dropOffCollectibles();
-	    Messenger.Broadcast("level up");
         }
     }
     // Use this for initialization
