@@ -52,9 +52,7 @@ public class PlayerControl : MonoBehaviour
                 }
             }
                     
-
-                
-
+		    maxSpeed = 1.25f * Mathf.Pow(.85f , getTreasureCount());   
             // The Speed animator parameter is set to the absolute value of the horizontal input.
             //anim.SetFloat("Speed", Mathf.Abs(h));
 
@@ -122,7 +120,6 @@ public class PlayerControl : MonoBehaviour
 	public void pickupCollectible(string type) {
             if (type == "Treasure") {
                 this.treasureCount += 1;
-                Debug.Log (this.treasureCount);
             }
 	}
 
@@ -150,7 +147,6 @@ public class PlayerControl : MonoBehaviour
                     return treasure.tag == "Treasure";
                 
                 });
-                Debug.Log (this.score);
             }
 	}
 }

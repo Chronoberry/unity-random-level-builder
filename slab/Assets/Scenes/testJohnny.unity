@@ -18,7 +18,7 @@ RenderSettings:
   m_FogDensity: .00999999978
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientLight: {r: .948529422, g: .920631468, b: .920631468, a: 1}
+  m_AmbientLight: {r: .200000003, g: .200000003, b: .200000003, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: .5
   m_FlareStrength: 1
@@ -395,15 +395,15 @@ Prefab:
 --- !u!1 &1097470757
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: dd1e9108c0c814b4d8b2415bdf309e2a, type: 2}
-  m_PrefabInternal: {fileID: 2140901003}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1097470759}
   - 132: {fileID: 1097470758}
   - 114: {fileID: 1097470760}
   m_Layer: 0
-  m_Name: Treasure UI Text
+  m_Name: UI Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -412,9 +412,8 @@ GameObject:
 --- !u!132 &1097470758
 GUIText:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 13200000, guid: dd1e9108c0c814b4d8b2415bdf309e2a,
-    type: 2}
-  m_PrefabInternal: {fileID: 2140901003}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1097470757}
   m_Enabled: 1
   serializedVersion: 3
@@ -436,8 +435,8 @@ GUIText:
 --- !u!4 &1097470759
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 400000, guid: dd1e9108c0c814b4d8b2415bdf309e2a, type: 2}
-  m_PrefabInternal: {fileID: 2140901003}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1097470757}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: .0500000007, y: .939999998, z: 0}
@@ -447,9 +446,8 @@ Transform:
 --- !u!114 &1097470760
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: dd1e9108c0c814b4d8b2415bdf309e2a,
-    type: 2}
-  m_PrefabInternal: {fileID: 2140901003}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1097470757}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -718,43 +716,3 @@ PolygonCollider2D:
       - {x: -4, y: -3.015625}
       - {x: 4, y: -3.015625}
       - {x: 4, y: 3.015625}
---- !u!1001 &2140901003
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 400000, guid: dd1e9108c0c814b4d8b2415bdf309e2a, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: .0500000007
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: dd1e9108c0c814b4d8b2415bdf309e2a, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: .939999998
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: dd1e9108c0c814b4d8b2415bdf309e2a, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: dd1e9108c0c814b4d8b2415bdf309e2a, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: dd1e9108c0c814b4d8b2415bdf309e2a, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: dd1e9108c0c814b4d8b2415bdf309e2a, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: dd1e9108c0c814b4d8b2415bdf309e2a, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: dd1e9108c0c814b4d8b2415bdf309e2a, type: 2}
-  m_RootGameObject: {fileID: 1097470757}
-  m_IsPrefabParent: 0
-  m_IsExploded: 1
