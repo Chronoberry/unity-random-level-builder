@@ -4,14 +4,12 @@ using System.Collections;
 public class HealthBar : MonoBehaviour {
 
         private PlayerControl player;
-        private Vector3 healthScale;
         private float origX;
         private SpriteRenderer sprite;
         private ParticleSystem ps;
 
 	// Use this for initialization
 	void Start () {
-            healthScale = transform.localScale;
             sprite = GetComponent<SpriteRenderer>();
             ps = GetComponent<ParticleSystem>();
             ps.Stop();

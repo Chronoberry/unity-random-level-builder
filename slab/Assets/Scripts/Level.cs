@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class Level : MonoBehaviour {
-	public int levelNumber = 0;
-	public int levelWidth = 5;
+    public int levelNumber = 0;
+    public int levelWidth = 5;
     public int levelHeight = 5;
     public int levelFill = 1;
 
@@ -11,10 +11,10 @@ public class Level : MonoBehaviour {
     public int tileHeight = 128;
 
     public GameObject tileSprite;
-	public GameObject transparentSprite;
+    public GameObject transparentSprite;
     public GameObject boat; 
     public GameObject rubberDuck; 
-	public GameObject background;
+    public GameObject background;
     public int maxDucks = 4;
 
     private int currentDucks = 0;
@@ -22,18 +22,18 @@ public class Level : MonoBehaviour {
     private GameObject[,] tiles;
     private const int EMPTY_TILE = 0;
     private const int FILLED_TILE = 1;
-	private const int TRANSPARENT_TILE = 2;
+    private const int TRANSPARENT_TILE = 2;
 
 
     void Start() {
-		transform.position = new Vector3(-(levelWidth/2.0f), -(float)2*levelHeight, 0f);
+        transform.position = new Vector3(-(levelWidth/2.0f), -(float)2*levelHeight, 0f);
         // Setup background, level, boat and player spawn points
-		SpawnBackground();
-		SpawnBoat();	
-		SpawnLevel();
+        SpawnBackground();
+        SpawnBoat();	
+        SpawnLevel();
 
-		// Setup event listener to level up
-		Messenger.AddListener("level up", LevelUp);
+        // Setup event listener to level up
+        Messenger.AddListener("level up", LevelUp);
     }
 	
 	void LevelUp() {
@@ -65,7 +65,7 @@ public class Level : MonoBehaviour {
 
 	void SpawnLevel() {
 		//Create the level
-		maxDucks = (levelNumber + 1) * 2;
+		maxDucks = (levelNumber + 1) * 5;
 		levelFill = Mathf.CeilToInt (levelNumber / 10);
 		levelTiles = new int[levelWidth, levelHeight];
 		levelTiles = TemplateLevel();
@@ -118,30 +118,31 @@ public class Level : MonoBehaviour {
         return fill;
     }
 
-	bool randomSpawnDucks() {
-		bool spawn = false;
-		int random = Random.Range(0, levelNumber+1);
-		if (random < 1) {
-			spawn = true;
-		}
-		return spawn;
-	}
+    bool randomSpawnDucks() {
+        bool spawn = false;
+        int random = Random.Range(0, levelNumber+1);
+        if (random < 1) {
+                spawn = true;
+        }
+        return spawn;
+    }
 
-	void DestroyAll() {
-		object[] allObjects = Resources.FindObjectsOfTypeAll(typeof(GameObject)) ;
-		foreach (object thisObject in allObjects) {
-			if (((GameObject)thisObject).activeInHierarchy) {
-				if (((GameObject)thisObject).tag != "LevelBuilder" && 
-				    ((GameObject)thisObject).tag != "MainCamera" &&
-				    ((GameObject)thisObject).tag != "Player" && 
-				    ((GameObject)thisObject).tag != "Boat")
-				{
-					//Debug.Log(((GameObject)thisObject).tag);
-					Destroy((GameObject)thisObject);
-				}
-			}
-		}
-	}
+    void DestroyAll() {
+        object[] allObjects = Resources.FindObjectsOfTypeAll(typeof(GameObject)) ;
+        foreach (object thisObject in allObjects) {
+            if (((GameObject)thisObject).activeInHierarchy) {
+                if (((GameObject)thisObject).tag != "LevelBuilder" && 
+                    ((GameObject)thisObject).tag != "MainCamera" &&
+                    ((GameObject)thisObject).tag != "Player" && 
+                    ((GameObject)thisObject).tag != "Boat" &&
+                    ((GameObject)thisObject).tag != "SoundManager")
+                {
+                        //Debug.Log(((GameObject)thisObject).tag);
+                        Destroy((GameObject)thisObject);
+                }
+            }
+        }
+    }
 
     public int getLevelHeight() {
         return this.levelHeight;

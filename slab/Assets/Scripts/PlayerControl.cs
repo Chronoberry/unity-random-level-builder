@@ -26,8 +26,8 @@ public class PlayerControl : MonoBehaviour
         //Player bonus
         private int currentBonus = 0;
         private int nextBonus = 5;
-        private float maxBonusDuration = 4f;
-        private float bonusDuration = 4f;
+        private float maxBonusDuration = 5f;
+        private float bonusDuration = 5f;
         private bool hasBonus = false;
 
 	void Awake(){
@@ -117,6 +117,7 @@ public class PlayerControl : MonoBehaviour
         public void checkForBonus(){
             if(currentBonus >= nextBonus){
                 //Reset the current bonus, set the bonus state, increase next bonus
+                Messenger.Broadcast("bonus speed");
                 currentBonus = 0;
                 hasBonus = true;
                 nextBonus += Random.Range(1, 6);
@@ -143,6 +144,7 @@ public class PlayerControl : MonoBehaviour
 
         public void pickupCollectible(GameObject collectible){
             if (collectible.tag == "Treasure"){
+                Messenger.Broadcast("pickup treasure");
                 treasureChests.Add(collectible);
                 currentBonus += 1; 
             } 
