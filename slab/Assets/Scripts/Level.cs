@@ -29,7 +29,7 @@ public class Level : MonoBehaviour {
 		transform.position = new Vector3(-(levelWidth/2.0f), -(float)2*levelHeight, 0f);
         // Setup background, level, boat and player spawn points
 		SpawnBackground();
-		SpawnBoat();
+		SpawnBoat();	
 		SpawnLevel();
 
 		// Setup event listener to level up
@@ -40,25 +40,26 @@ public class Level : MonoBehaviour {
 		levelNumber++;
 		levelWidth += Random.Range (1, 4);
 		levelHeight += Random.Range (1, 4);
-		DestroyAll ();
-		//SpawnBackground();
-		//SpawnLevel();
-		//SpawnBoat();
+		DestroyAll();
+		SpawnBackground ();
+		SpawnBoat();
+		SpawnLevel();
 	}
 
 	void SpawnBackground() {
 		Vector3 backgroundPosition = new Vector3(levelWidth * 0.5f, levelHeight-1.5f, 0f);
 		background = (GameObject)Instantiate(background, backgroundPosition, Quaternion.identity);
 	}
-	
+
 	void SpawnBoat() {
 		Vector3 boatStartPosition = new Vector3(levelWidth * 0.5f, levelHeight-1, 0f);
-		boat = (GameObject)Instantiate( boat, boatStartPosition, Quaternion.identity);
+		Debug.Log (boatStartPosition);
+		boat = (GameObject)Instantiate(boat, boatStartPosition, Quaternion.identity);
 	}
 
 	void SpawnLevel() {
 		//Create the level
-		maxDucks = levelNumber * 2;
+		maxDucks = (levelNumber + 1) * 2;
 		levelFill = Mathf.CeilToInt (levelNumber / 10);
 		levelTiles = new int[levelWidth, levelHeight];
 		levelTiles = TemplateLevel();
@@ -77,10 +78,10 @@ public class Level : MonoBehaviour {
 					tiles[row, col] = (GameObject)Instantiate(transparentSprite, new Vector3(row, col, 1), Quaternion.identity);
 				}
 				// Randomly spawn rubber ducks
-				if(randomSpawnDucks() && 
-				   currentDucks < maxDucks && 
-				   levelTiles[row, col] != FILLED_TILE && 
-				   levelTiles[row, col] != TRANSPARENT_TILE) 
+				if(randomSpawnDucks() &&
+				   currentDucks < maxDucks &&
+				   levelTiles[row, col] != FILLED_TILE &&
+				   levelTiles[row, col] != TRANSPARENT_TILE)
 				{
 					rubberDuck = (GameObject)Instantiate(rubberDuck, new Vector3(row, col, 1), Quaternion.identity);
 					currentDucks += 1;
@@ -113,7 +114,7 @@ public class Level : MonoBehaviour {
 
 	bool randomSpawnDucks() {
 		bool spawn = false;
-		int random = Random.Range(0, levelNumber);
+		int random = Random.Range(0, levelNumber+1);
 		if (random < 1) {
 			spawn = true;
 		}
@@ -124,10 +125,10 @@ public class Level : MonoBehaviour {
 		object[] allObjects = FindObjectsOfTypeAll(typeof(GameObject)) ;
 		foreach (object thisObject in allObjects) {
 			if (((GameObject)thisObject).activeInHierarchy) {
-				if (((GameObject)thisObject).tag != "LevelBuilder" ||
-				    ((GameObject)thisObject).tag != "MainCamera" ||
-				    ((GameObject)thisObject).tag != "Background") 
+				if (((GameObject)thisObject).tag != "LevelBuilder" && 
+				    ((GameObject)thisObject).tag != "MainCamera")
 				{
+					//Debug.Log(((GameObject)thisObject).tag);
 					Destroy((GameObject)thisObject);
 				}
 			}

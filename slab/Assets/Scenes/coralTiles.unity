@@ -85,7 +85,7 @@ GameObject:
   - 212: {fileID: 19826701}
   m_Layer: 0
   m_Name: HealthBar
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -231,7 +231,7 @@ GameObject:
   - 212: {fileID: 235217057}
   m_Layer: 0
   m_Name: UI
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -449,7 +449,7 @@ GameObject:
   - 114: {fileID: 799817172}
   m_Layer: 0
   m_Name: Treasure UI Text
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -549,6 +549,18 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: .400000006
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 6c919d6414a3e4b47b9d17f185599b6d, type: 2}
+      propertyPath: m_TagString
+      value: MainCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 6c919d6414a3e4b47b9d17f185599b6d, type: 2}
+      propertyPath: m_TagString
+      value: MainCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 6c919d6414a3e4b47b9d17f185599b6d, type: 2}
+      propertyPath: m_TagString
+      value: MainCamera
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6c919d6414a3e4b47b9d17f185599b6d, type: 2}
   m_RootGameObject: {fileID: 511356792}
@@ -566,7 +578,7 @@ GameObject:
   - 114: {fileID: 1420479334}
   m_Layer: 0
   m_Name: barofyellow
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

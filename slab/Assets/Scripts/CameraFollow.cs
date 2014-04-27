@@ -48,7 +48,7 @@ public class CameraFollow : MonoBehaviour
 					player = GameObject.FindGameObjectWithTag ("Player").transform;
 				}
 				catch (NullReferenceException e) {
-					return;
+					//Debug.Log("no player to follow");
 				}	
 			}
                 

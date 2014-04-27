@@ -21,19 +21,18 @@ public class Boat : MonoBehaviour {
     void Update () {
         checkForDeath();
     }
-
+	
     void checkForDeath(){
         if(player.GetComponent<PlayerControl>().getCurrentHealth() <= 0){
-            //Destroy(player);
-            //spawnPlayer();
             player.transform.position = transform.position;
             player.GetComponent<PlayerControl>().resetHealth();
         }
     }
 
     void spawnPlayer(){
-        Vector3 playerStartPosition = new Vector3( transform.position.x, transform.position.y - 2, 0f);
-        player = (GameObject)Instantiate( player, playerStartPosition, Quaternion.identity);
+        Vector3 playerStartPosition = new Vector3(transform.position.x, transform.position.y-2, 0f);
+		Debug.Log (playerStartPosition);
+        player = (GameObject)Instantiate(player, playerStartPosition, Quaternion.identity);
     }
 
 }
