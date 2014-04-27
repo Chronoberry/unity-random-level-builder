@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
 
 public class PlayerControl : MonoBehaviour
 {
@@ -18,11 +20,15 @@ public class PlayerControl : MonoBehaviour
         private float stunDuration;
         private float oldMass = 0;
         private ParticleSystem ps;
+        private List<GameObject> treasureChests;
+        private List<GameObject> food;
 	
 	void Awake(){
             // Setting up references.
             //anim = GetComponent<Animator>();
             ps = GetComponent<ParticleSystem>();
+            treasureChests = new List<GameObject>();
+            food = new List<GameObject>();
 	}
 
 	void Update(){
@@ -114,16 +120,37 @@ public class PlayerControl : MonoBehaviour
         }
 
 	public void pickupCollectible(string type) {
-		if (type == "Treasure") {
-			this.treasureCount += 1;
-			Debug.Log (this.treasureCount);
-		}
+            if (type == "Treasure") {
+                this.treasureCount += 1;
+                Debug.Log (this.treasureCount);
+            }
 	}
+
+        public void pickupCollectible(GameObject collectible){
+            if (collectible.tag == "Treasure"){
+                treasureChests.Add(collectible);
+            } 
+            if (collectible.tag == "Food"){
+                food.Add(collectible);
+            }
+
+        }
+        public int getTreasureCount(){
+            return treasureChests.Count;
+        }
+
+
 	public void dropOffCollectibles() {
-		if (this.treasureCount > 0) {
-			this.score += this.treasureCount;
-			this.treasureCount =0;
-			Debug.Log (this.score);
-		}
+            if (getTreasureCount() > 0) {
+                this.score += getTreasureCount();
+                foreach(GameObject treasure in treasureChests){
+                    Destroy(treasure);
+                }
+                treasureChests.RemoveAll(delegate(GameObject treasure){
+                    return treasure.tag == "Treasure";
+                
+                });
+                Debug.Log (this.score);
+            }
 	}
 }

@@ -12,13 +12,13 @@ public class Level : MonoBehaviour {
     public GameObject tileSprite;
     public GameObject boat; 
     public GameObject treasureChest; 
-    
-	private int currentChests = 0;
+    public int MAX_CHESTS = 4;
+
+    private int currentChests = 0;
     private int[,] levelTiles;
     private GameObject[,] tiles;
     private const int EMPTY_TILE = 0;
     private const int FILLED_TILE = 1;
-	private const int MAX_CHESTS = 4;
 
 
     void Start() {
