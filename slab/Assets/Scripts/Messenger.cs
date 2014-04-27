@@ -35,7 +35,8 @@ static internal class Messenger {
 	//Disable the unused variable warning
 	#pragma warning disable 0414
 	//Ensures that the MessengerHelper will be created automatically upon start of the game.
-	static private MessengerHelper messengerHelper = ( new GameObject("MessengerHelper") ).AddComponent< MessengerHelper >();
+	static private MessengerHelper messengerHelper = (new GameObject("MessengerHelper")).AddComponent<MessengerHelper>();
+
 	#pragma warning restore 0414
 	
 	static public Dictionary<string, Delegate> eventTable = new Dictionary<string, Delegate>();

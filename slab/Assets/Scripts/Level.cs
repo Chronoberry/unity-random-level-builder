@@ -43,8 +43,7 @@ public class Level : MonoBehaviour {
 		DestroyAll();
 		SpawnBackground ();
 		SpawnLevel();
-                MoveBoat();
-		Messenger.AddListener("level up", LevelUp);
+        MoveBoat();
 	}
 
 	void SpawnBackground() {
@@ -136,8 +135,13 @@ public class Level : MonoBehaviour {
 				    ((GameObject)thisObject).tag != "Player" && 
 				    ((GameObject)thisObject).tag != "Boat")
 				{
-					//Debug.Log(((GameObject)thisObject).tag);
-					Destroy((GameObject)thisObject);
+					Debug.Log(((GameObject)thisObject).ToString());
+					try {
+						Debug.Log(((GameObject)thisObject).GetComponent("MessengerHelper").ToString());
+					}
+					catch (System.Exception e) {
+						Destroy((GameObject)thisObject);
+					}
 				}
 			}
 		}
