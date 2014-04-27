@@ -7,28 +7,28 @@ public class PlayerControl : MonoBehaviour
 {
 	[HideInInspector]
 	public bool facingRight = true;			// For determining which way the player is currently facing.
-
-	public float moveForce = 365f;			// Amount of force added to move the player left and right.
-	public float maxSpeed = 5f;				// The fastest the player can travel in the x axis.
 	[HideInInspector]
 	public int treasureCount = 0;
 	[HideInInspector]
 	public int score = 0;
 
-	//private Animator anim;					// Reference to the player's animator component.
+	public float moveForce = 365f;			// Amount of force added to move the player left and right.
+	public float maxSpeed = 5f;				// The fastest the player can travel in the x axis.
+        public int maxHealth = 100;
+
         private bool stunned = false;
         private float stunDuration;
         private float oldMass = 0;
         private ParticleSystem ps;
         private List<GameObject> treasureChests;
         private List<GameObject> food;
-	
+	private int currentHealth;
+
 	void Awake(){
-            // Setting up references.
-            //anim = GetComponent<Animator>();
             ps = GetComponent<ParticleSystem>();
             treasureChests = new List<GameObject>();
             food = new List<GameObject>();
+            currentHealth = maxHealth;
 	}
 
 	void Update(){
@@ -52,9 +52,7 @@ public class PlayerControl : MonoBehaviour
                 }
             }
                     
-		    maxSpeed = 1.25f * Mathf.Pow(.85f , getTreasureCount());   
-            // The Speed animator parameter is set to the absolute value of the horizontal input.
-            //anim.SetFloat("Speed", Mathf.Abs(h));
+            maxSpeed = 1.25f * Mathf.Pow(.85f , getTreasureCount());   
 
             // If the player is changing direction (h has a different sign to velocity.x) or hasn't reached maxSpeed yet...
             if(h * rigidbody2D.velocity.x < maxSpeed) {
@@ -74,7 +72,7 @@ public class PlayerControl : MonoBehaviour
             }
 
             if(Mathf.Abs(rigidbody2D.velocity.y) > maxSpeed) {
-                // ... set the player's velocity to the maxSpeed in the x axis.
+                // ... set the player's velocity to the maxSpeed in the y axis.
                 rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, Mathf.Sign(rigidbody2D.velocity.y) * maxSpeed);
             }
             // If the input is moving the player right and the player is facing left...
@@ -149,4 +147,17 @@ public class PlayerControl : MonoBehaviour
                 });
             }
 	}
+
+        public void takeDamage(int damage){
+            currentHealth -= damage;
+        }
+
+        public void resetHealth(){
+            currentHealth = maxHealth;
+        }
+
+        public int getCurrentHealth(){
+            return currentHealth;
+
+        }
 }

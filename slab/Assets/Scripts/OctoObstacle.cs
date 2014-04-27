@@ -8,6 +8,7 @@ public class OctoObstacle : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D col) {
         if (col.gameObject.tag == "Player") {
             col.gameObject.GetComponent<PlayerControl>().stunPlayer(stunDuration);
+            col.gameObject.GetComponent<PlayerControl>().takeDamage(10);
         }
     }
     // Use this for initialization
