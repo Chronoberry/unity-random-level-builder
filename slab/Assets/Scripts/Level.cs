@@ -13,6 +13,7 @@ public class Level : MonoBehaviour {
     public GameObject tileSprite;
 	public GameObject transparentSprite;
     public GameObject boat; 
+	public GameObject player;
     public GameObject rubberDuck; 
 	public GameObject background;
     public int maxDucks = 4;
@@ -29,11 +30,13 @@ public class Level : MonoBehaviour {
 		transform.position = new Vector3(-(levelWidth/2.0f), -(float)2*levelHeight, 0f);
         // Setup background, level, boat and player spawn points
 		SpawnBackground();
-		SpawnBoat();	
 		SpawnLevel();
+		SpawnBoat();	
+		SpawnPlayer ();
 
 		// Setup event listener to level up
 		Messenger.AddListener("level up", LevelUp);
+		Messenger.AddListener("respawn player", MovePlayer);
     }
 	
 	void LevelUp() {
@@ -44,6 +47,7 @@ public class Level : MonoBehaviour {
 		SpawnBackground ();
 		SpawnLevel();
         MoveBoat();
+		MovePlayer();
 	}
 
 	void SpawnBackground() {
@@ -53,14 +57,23 @@ public class Level : MonoBehaviour {
 
 	void SpawnBoat() {
 		Vector3 boatStartPosition = new Vector3(levelWidth * 0.5f, levelHeight-1, 0f);
-		Debug.Log (boatStartPosition);
 		boat = (GameObject)Instantiate(boat, boatStartPosition, Quaternion.identity);
 	}
 
-        void MoveBoat(){
+    void MoveBoat() {
 	    Vector3 boatStartPosition = new Vector3(levelWidth * 0.5f, levelHeight-1, 0f);
-            boat.transform.position = boatStartPosition; 
-        }
+        boat.transform.position = boatStartPosition; 
+  	}
+
+	void SpawnPlayer() {
+		Vector3 playerStartPosition = new Vector3(levelWidth * 0.5f, levelHeight-3, 0f);
+		player = (GameObject)Instantiate(player, playerStartPosition, Quaternion.identity);
+	}
+
+	void MovePlayer() {
+		Vector3 playerStartPosition = new Vector3(levelWidth * 0.5f, levelHeight-3, 0f);
+		player.transform.position = playerStartPosition; 
+	}
 
 	void SpawnLevel() {
 		//Create the level

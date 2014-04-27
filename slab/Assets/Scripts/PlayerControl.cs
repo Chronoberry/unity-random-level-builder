@@ -29,6 +29,8 @@ public class PlayerControl : MonoBehaviour
         private float maxBonusDuration = 4f;
         private float bonusDuration = 4f;
         private bool hasBonus = false;
+	void Start() {
+	}
 
 	void Awake(){
             treasureChests = new List<GameObject>();
@@ -36,9 +38,10 @@ public class PlayerControl : MonoBehaviour
             currentHealth = maxHealth;
 	}
 
-	void Update(){
-            checkForStun(); 
-            checkForBonus();
+	void Update() {
+		checkForDeath();
+        checkForStun(); 
+        checkForBonus();
 	}
 	
 	void FixedUpdate (){
@@ -100,6 +103,12 @@ public class PlayerControl : MonoBehaviour
             Vector3 theScale = transform.localScale;
             theScale.x *= -1;
             transform.localScale = theScale;
+	}
+
+	void checkForDeath(){
+		if(currentHealth <= 0) {
+			Messenger.Broadcast("respawn player");
+		}
 	}
 
 	public void checkForStun(){
