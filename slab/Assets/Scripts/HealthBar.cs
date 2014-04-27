@@ -6,11 +6,17 @@ public class HealthBar : MonoBehaviour {
         private PlayerControl player;
         private Vector3 healthScale;
         private float origX;
+        private SpriteRenderer sprite;
+        private ParticleSystem ps;
 
 	// Use this for initialization
 	void Start () {
-	    origX = transform.position.x;
             healthScale = transform.localScale;
+            sprite = GetComponent<SpriteRenderer>();
+            ps = GetComponent<ParticleSystem>();
+            ps.Stop();
+
+	    Messenger.AddListener("take damage", takeDamage);
 	}
 	
 	// Update is called once per frame
@@ -18,7 +24,11 @@ public class HealthBar : MonoBehaviour {
             if(player == null)
                 player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
 
-            transform.localScale = new Vector3( healthScale.x * player.getCurrentHealth() * 0.01f, transform.localScale.y, 0f);
-	    transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, (float)player.getCurrentHealth() / 100f);
 	}
+        
+        void takeDamage(){
+
+            ps.Emit(1);
+        }
 }
