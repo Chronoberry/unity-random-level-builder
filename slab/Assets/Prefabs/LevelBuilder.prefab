@@ -11,7 +11,7 @@ GameObject:
   - 114: {fileID: 11400000}
   m_Layer: 0
   m_Name: LevelBuilder
-  m_TagString: Untagged
+  m_TagString: LevelBuilder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,15 +38,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cd52c783c5b94c70afcbaaae77b922e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelWidth: 15
-  levelHeight: 10
+  levelNumber: 0
+  levelWidth: 8
+  levelHeight: 5
   levelFill: 1
   tileWidth: 8
   tileHeight: 8
   tileSprite: {fileID: 100000, guid: 2158e200103d046f7a0e0046dc23fdc5, type: 2}
+  transparentSprite: {fileID: 100000, guid: 1101821ae47b7408cb2dcb7c1b275654, type: 2}
   boat: {fileID: 100000, guid: 496222f2326575b46893ac83cca4180d, type: 2}
-  treasureChest: {fileID: 100000, guid: 46968bfc9172e124a9eaa0c889544c2f, type: 2}
-  MAX_CHESTS: 10
+  rubberDuck: {fileID: 100000, guid: 9876d471111f34d26935f043c0f44bd0, type: 2}
+  background: {fileID: 100000, guid: 99fba1b3228c9457a8ddfbc8e1e99910, type: 2}
+  maxDucks: 4
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

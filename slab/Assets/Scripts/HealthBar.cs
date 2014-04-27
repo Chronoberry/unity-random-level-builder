@@ -17,7 +17,6 @@ public class HealthBar : MonoBehaviour {
             if(player == null)
                 player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
 
-            Debug.Log(transform.localScale);
             transform.localScale = new Vector3( healthScale.x * player.getCurrentHealth() * 0.01f, transform.localScale.y, 0f);
 	
 	}
