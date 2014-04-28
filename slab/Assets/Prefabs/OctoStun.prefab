@@ -12,10 +12,12 @@ GameObject:
   - 23: {fileID: 2300000}
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400000}
-  - 58: {fileID: 5800000}
   - 198: {fileID: 19800000}
   - 199: {fileID: 19900000}
+  - 50: {fileID: 5000000}
+  - 58: {fileID: 5800000}
   - 61: {fileID: 6100000}
+  - 58: {fileID: 5800002}
   m_Layer: 0
   m_Name: OctoStun
   m_TagString: Enemy
@@ -62,6 +64,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_Mesh: {fileID: 0}
+--- !u!50 &5000000
+Rigidbody2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Mass: 100
+  m_LinearDrag: .100000001
+  m_AngularDrag: 50
+  m_GravityScale: -.00499999989
+  m_FixedAngle: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
 --- !u!58 &5800000
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -71,8 +88,19 @@ CircleCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Radius: 150
-  m_Center: {x: 0, y: 60}
+  m_Radius: 120
+  m_Center: {x: 0, y: 80}
+--- !u!58 &5800002
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_Material: {fileID: 6200000, guid: 65c369ef7481344b494ab6a0bb31e689, type: 2}
+  m_IsTrigger: 0
+  m_Radius: 80
+  m_Center: {x: 0, y: 80}
 --- !u!61 &6100000
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -82,8 +110,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Size: {x: 750, y: 230}
-  m_Center: {x: 48.1856689, y: 39.9900055}
+  m_Size: {x: 650, y: 200}
+  m_Center: {x: 50, y: 30}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -111,7 +139,7 @@ MonoBehaviour:
   valid: 1
   skeletonDataAsset: {fileID: 11400000, guid: 61ec62a36b0d24e43a41d413c2f98dfd, type: 2}
   initialSkinName: default
-  calculateNormals: 0
+  calculateNormals: 1
   calculateTangents: 0
   zSpacing: 0
   timeScale: 1
