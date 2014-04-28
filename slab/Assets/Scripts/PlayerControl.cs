@@ -50,6 +50,7 @@ public class PlayerControl : MonoBehaviour
            // Cache the horizontal input.
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
+			bool facingLeft = !facingRight;
 
             //Handle being stunned
             if(stunned){
@@ -63,7 +64,9 @@ public class PlayerControl : MonoBehaviour
             }
 
             if(!hasBonus)                    
-                maxSpeed = 1.25f * Mathf.Pow(1.1f , getTreasureCount());   
+                maxSpeed = 1.25f + getTreasureCount() / 5f;
+			if (maxSpeed > 2.5f)
+			maxSpeed = 2.5f;
 
             // If the player is changing direction (h has a different sign to velocity.x) or hasn't reached maxSpeed yet...
             if(h * rigidbody2D.velocity.x < maxSpeed) {
@@ -94,7 +97,6 @@ public class PlayerControl : MonoBehaviour
             else if(h < 0 && facingRight) {
                 FlipPlayer();
             }
-
 	}
 
 	void FlipPlayer () {
@@ -177,7 +179,7 @@ public class PlayerControl : MonoBehaviour
 	public void dropOffCollectibles() {
 		int treasureCount = getTreasureCount ();
 		if (treasureCount > 0) {
-			this.score += treasureCount*100 + (int)Mathf.Pow(treasureCount-1, 3)*10;
+			this.score += treasureCount*100 + (int)Mathf.Pow(treasureCount-1, 2)*10;
                 foreach(GameObject treasure in treasureChests){
                     Destroy(treasure);
                 }

@@ -55,12 +55,13 @@ public class CollectableCollision : MonoBehaviour {
 
         void FixedUpdate(){
             if(followPlayer){
-                Vector3 followVector = player.transform.position - transform.position;
-                rigidbody2D.AddForce(new Vector2( followVector.x + ( 5f * Random.Range(-1f, 1f)), followVector.y + (5f * Random.Range(-1f, 1f))) );
-                if(rigidbody2D.velocity.x > 0.1 && !facingRight) {
+                Vector3 followVector = 5f * (player.transform.position - transform.position);
+                rigidbody2D.AddForce(new Vector2( followVector.x + ( 7f * Random.Range(-1f, 1f)), followVector.y + (7f * Random.Range(-1f, 1f))) );
+				float flipThreshold = 0.5f;
+				if(rigidbody2D.velocity.x > flipThreshold && !facingRight) {
                     FlipMe();
                 }
-                else if(rigidbody2D.velocity.x < -0.1 && facingRight) {
+				else if(rigidbody2D.velocity.x < -flipThreshold && facingRight) {
                     FlipMe();
                 }
 

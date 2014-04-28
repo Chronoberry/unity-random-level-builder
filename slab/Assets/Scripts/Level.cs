@@ -100,6 +100,7 @@ public class Level : MonoBehaviour {
 				// Create game objects for each filled tile
 				if(levelTiles[row, col] == FILLED_TILE) {
 					tiles[row, col] = (GameObject)Instantiate(tileSprite, new Vector3(row, col, 1), Quaternion.identity);
+					tiles[row, col].transform.Rotate(0, 0, (Random.Range(0, 13)*37), Space.World);
 				}
 				else if(levelTiles[row, col] == TRANSPARENT_TILE) {
 					tiles[row, col] = (GameObject)Instantiate(transparentSprite, new Vector3(row, col, 1), Quaternion.identity);
