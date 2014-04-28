@@ -14,13 +14,13 @@ public class Score : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
             if (player == null) {
-				try {
-					player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerControl> ();
-				}
-				catch (Exception e) {
-					;
-				}
-			}
+                try {
+                    player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerControl> ();
+                }
+                catch (Exception e) {
+                    ;
+                }
+            }
 
             guiText.text = "Score : " + player.getScore();
 	}

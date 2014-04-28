@@ -14,7 +14,7 @@ public class PlayerControl : MonoBehaviour
 
 	public float moveForce = 365f;			// Amount of force added to move the player left and right.
 	public float maxSpeed = 5f;				// The fastest the player can travel in the x axis.
-    public int maxHealth = 100;
+        public int maxHealth = 100;
 
 	private bool stunned = false;
 	private float stunDuration;
@@ -23,12 +23,12 @@ public class PlayerControl : MonoBehaviour
 	private List<GameObject> food;
 	private int currentHealth;
 
-	//Player bonus
-	private int currentBonus = 0;
-	private int nextBonus = 5;
-	private float maxBonusDuration = 4f;
-	private float bonusDuration = 4f;
-	private bool hasBonus = false;
+        //Player bonus
+        private int currentBonus = 0;
+        private int nextBonus = 5;
+        private float maxBonusDuration = 5f;
+        private float bonusDuration = 5f;
+        private bool hasBonus = false;
 	private float timer = 1.0f;
 	void Start() {
 	}
@@ -40,10 +40,10 @@ public class PlayerControl : MonoBehaviour
 	}
 
 	void Update() {
-		checkForDeath();
-        checkForStun(); 
-        checkForBonus();
-		//loseHealth();
+            checkForDeath();
+            checkForStun(); 
+            checkForBonus();
+            //loseHealth();
 	}
 	
 	void FixedUpdate (){
@@ -108,42 +108,42 @@ public class PlayerControl : MonoBehaviour
 	}
 
 	void checkForDeath(){
-		if(currentHealth <= 0) {
-			currentHealth = 100;
-			Messenger.Broadcast("respawn player");
-		}
+            if(currentHealth <= 0) {
+                currentHealth = 100;
+                Messenger.Broadcast("respawn player");
+            }
 	}
 
-	public void checkForStun(){
-	    if(stunned) {
-	        if(stunDuration < 0){
-	            stunned = false;
-	            rigidbody2D.mass = oldMass;
-	            oldMass = 0;
-	        } else {
-	            stunDuration -= Time.deltaTime;
-	        }
-	    }
-	}
+        public void checkForStun(){
+            if(stunned) {
+                if(stunDuration < 0){
+                    stunned = false;
+                    rigidbody2D.mass = oldMass;
+                    oldMass = 0;
+                } else {
+                    stunDuration -= Time.deltaTime;
+                }
+            }
+        }
 
-	public void checkForBonus(){
-	    if(currentBonus >= nextBonus){
-	        //Reset the current bonus, set the bonus state, increase next bonus
-	        currentBonus = 0;
-	        hasBonus = true;
-	        nextBonus += Random.Range(1, 6);
-	        maxBonusDuration += 1f;
-	        bonusDuration = maxBonusDuration;
-	        maxSpeed = maxSpeed * 3;
-	    }
-
-	    if(hasBonus){
-	        if(bonusDuration < 0){
-	            hasBonus = false;
-	            maxSpeed = maxSpeed  / 3;
-	        } else {
-	            bonusDuration -= Time.deltaTime;
-
+        public void checkForBonus(){
+            if(currentBonus >= nextBonus){
+                //Reset the current bonus, set the bonus state, increase next bonus
+                Messenger.Broadcast("bonus speed");
+                currentBonus = 0;
+                hasBonus = true;
+                nextBonus += Random.Range(1, 6);
+                maxBonusDuration += 1f;
+                bonusDuration = maxBonusDuration;
+                maxSpeed = 6f;
+            }
+ 
+            if(hasBonus){
+                if(bonusDuration < 0){
+                    hasBonus = false;
+                    maxSpeed = maxSpeed  / 3;
+                } else {
+                    bonusDuration -= Time.deltaTime;
 	        }
 	    }
 	}
@@ -161,16 +161,15 @@ public class PlayerControl : MonoBehaviour
 	    stunned = true;
 	    stunDuration = duration;
 	}
-
-	public void pickupCollectible(GameObject collectible){
-	    if (collectible.tag == "Treasure"){
-	        treasureChests.Add(collectible);
-	        currentBonus += 1; 
-	    } 
-	    if (collectible.tag == "Food"){
-	        food.Add(collectible);
-	    }
-
+        public void pickupCollectible(GameObject collectible){
+            if (collectible.tag == "Treasure"){
+                Messenger.Broadcast("pickup treasure");
+                treasureChests.Add(collectible);
+                currentBonus += 1; 
+            } 
+            if (collectible.tag == "Food"){
+                food.Add(collectible);
+            }
 	}
 	public int getTreasureCount(){
 	    return treasureChests.Count;

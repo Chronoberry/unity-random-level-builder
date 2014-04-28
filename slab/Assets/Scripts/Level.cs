@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class Level : MonoBehaviour {
-	public int levelNumber = 0;
-	public int levelWidth = 5;
+    public int levelNumber = 0;
+    public int levelWidth = 5;
     public int levelHeight = 5;
     public int levelFill = 1;
 
@@ -11,7 +11,7 @@ public class Level : MonoBehaviour {
     public int tileHeight = 128;
 
     public GameObject tileSprite;
-	public GameObject transparentSprite;
+    public GameObject transparentSprite;
     public GameObject boat; 
 	public GameObject player;
     public GameObject rubberDuck; 
@@ -26,20 +26,20 @@ public class Level : MonoBehaviour {
     private GameObject[,] tiles;
     private const int EMPTY_TILE = 0;
     private const int FILLED_TILE = 1;
-	private const int TRANSPARENT_TILE = 2;
+    private const int TRANSPARENT_TILE = 2;
 
 
     void Start() {
-		transform.position = new Vector3(-(levelWidth/2.0f), -(float)2*levelHeight, 0f);
+        transform.position = new Vector3(-(levelWidth/2.0f), -(float)2*levelHeight, 0f);
         // Setup background, level, boat and player spawn points
-		SpawnBackground();
-		SpawnLevel();
-		SpawnBoat();	
-		SpawnPlayer ();
+            SpawnBackground();
+            SpawnLevel();
+            SpawnBoat();	
+            SpawnPlayer ();
 
-		// Setup event listener to level up
-		Messenger.AddListener("level up", LevelUp);
-		Messenger.AddListener("respawn player", MovePlayer);
+            // Setup event listener to level up
+            Messenger.AddListener("level up", LevelUp);
+            Messenger.AddListener("respawn player", MovePlayer);
     }
 	
 	void LevelUp() {
@@ -49,7 +49,7 @@ public class Level : MonoBehaviour {
 		DestroyAll();
 		MoveBackground();
 		SpawnLevel();
-        MoveBoat();
+                MoveBoat();
 		MovePlayer();
 	}
 
@@ -67,7 +67,7 @@ public class Level : MonoBehaviour {
 		boat = (GameObject)Instantiate(boat, boatStartPosition, Quaternion.identity);
 	}
 
-    void MoveBoat() {  
+        void MoveBoat() {  
 		boat.transform.position = new Vector3(levelWidth * 0.5f, levelHeight-1, 0f);
   	}
 
@@ -148,15 +148,16 @@ public class Level : MonoBehaviour {
         return fill;
     }
 
-	bool randomSpawnDucks() {
-		bool spawn = false;
-		int random = Random.Range(0, levelNumber+1);
-		if (random < 1) {
-			spawn = true;
-		}
-		return spawn;
-	}
+    bool randomSpawnDucks() {
+        bool spawn = false;
+        int random = Random.Range(0, levelNumber+1);
+        if (random < 1) {
+                spawn = true;
+        }
+        return spawn;
+    }
 
+<<<<<<< HEAD
 	bool randomSpawnOctopus() {
 		bool spawn = false;
 		int random = Random.Range(0, levelNumber+5);
@@ -187,6 +188,30 @@ public class Level : MonoBehaviour {
 			}
 		}
 	}
+=======
+    void DestroyAll() {
+        object[] allObjects = Resources.FindObjectsOfTypeAll(typeof(GameObject)) ;
+        foreach (object thisObject in allObjects) {
+            if (((GameObject)thisObject).activeInHierarchy) {
+                if (((GameObject)thisObject).tag != "LevelBuilder" && 
+                    ((GameObject)thisObject).tag != "MainCamera" &&
+                    ((GameObject)thisObject).tag != "Player" && 
+                    ((GameObject)thisObject).tag != "Background" && 
+                    ((GameObject)thisObject).tag != "Boat" &&
+                    ((GameObject)thisObject).tag != "SoundManager")
+                {
+                    Debug.Log(((GameObject)thisObject).ToString());
+                    try {
+                            Debug.Log(((GameObject)thisObject).GetComponent("MessengerHelper").ToString());
+                    }
+                    catch (System.Exception e) {
+                            Destroy((GameObject)thisObject);
+                    }
+                }
+            }
+        }
+    }
+>>>>>>> e19349f4c524513b4ebcdc9795a3eb2224a5f5fe
 
     public int getLevelHeight() {
         return this.levelHeight;
