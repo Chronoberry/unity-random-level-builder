@@ -29,6 +29,9 @@ public class PlayerControl : MonoBehaviour
         private float maxBonusDuration = 5f;
         private float bonusDuration = 5f;
         private bool hasBonus = false;
+	private float timer = 1.0f;
+	void Start() {
+	}
 
 	void Awake(){
             treasureChests = new List<GameObject>();
@@ -40,7 +43,7 @@ public class PlayerControl : MonoBehaviour
             checkForDeath();
             checkForStun(); 
             checkForBonus();
-
+            //loseHealth();
 	}
 	
 	void FixedUpdate (){
@@ -106,6 +109,7 @@ public class PlayerControl : MonoBehaviour
 
 	void checkForDeath(){
             if(currentHealth <= 0) {
+                currentHealth = 100;
                 Messenger.Broadcast("respawn player");
             }
 	}
@@ -144,6 +148,15 @@ public class PlayerControl : MonoBehaviour
 	    }
 	}
 
+	public void loseHealth() {
+		timer -= Time.deltaTime;
+		if (timer < 0) {
+			currentHealth--;
+			timer = 1.0f;
+			Debug.Log(currentHealth);
+		}
+	}
+
 	public void stunPlayer(float duration){
 	    stunned = true;
 	    stunDuration = duration;
@@ -163,8 +176,9 @@ public class PlayerControl : MonoBehaviour
 	}
 
 	public void dropOffCollectibles() {
-            if (getTreasureCount() > 0) {
-                this.score += getTreasureCount();
+		int treasureCount = getTreasureCount ();
+		if (treasureCount > 0) {
+			this.score += treasureCount*100 + (int)Mathf.Pow(treasureCount-1, 3)*10;
                 foreach(GameObject treasure in treasureChests){
                     Destroy(treasure);
                 }
