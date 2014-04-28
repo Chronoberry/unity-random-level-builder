@@ -35,6 +35,7 @@ public class Level : MonoBehaviour {
 
     void Start() {
 		winCondition = Random.Range(30, 51);
+		winCondition = 1;
         transform.position = new Vector3(-(levelWidth/2.0f), -(float)2*levelHeight, 0f);
         // Setup background, level, boat and player spawn points
             SpawnBackground();

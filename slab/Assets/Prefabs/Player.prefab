@@ -86,8 +86,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Size: {x: 1650.2301, y: 669.594604}
-  m_Center: {x: -240.125061, y: -105.215416}
+  m_Size: {x: 1300, y: 500}
+  m_Center: {x: -200, y: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -105,17 +105,6 @@ MonoBehaviour:
   moveForce: 35
   maxSpeed: 1.25
   maxHealth: 100
-  soundClips:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

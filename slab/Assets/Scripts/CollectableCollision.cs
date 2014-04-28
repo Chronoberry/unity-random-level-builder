@@ -41,10 +41,18 @@ public class CollectableCollision : MonoBehaviour {
 	}
 
 	void Yolo(){
-		if(Random.Range(0, 10) < 3){
+		int yolo = Random.Range(0, 10);
+		if(yolo < 3){
 			isFish = true;
 			renderer.sprite = alternate;
 		}
+		/*if( yolo >= 5){
+			for(int i=0; i < 10; i++){
+				Color oldColor = renderer.color;
+				renderer.color = Color.green;
+			}
+		}*/
+		
 	}
 
 	// Update is called once per frame
