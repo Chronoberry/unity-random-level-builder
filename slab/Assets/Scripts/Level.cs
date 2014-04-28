@@ -41,8 +41,8 @@ public class Level : MonoBehaviour {
 	
 	void LevelUp() {
 		levelNumber++;
-		levelWidth += Random.Range (1, 3);
-		levelHeight += Random.Range (1, 3);
+		levelWidth += Random.Range (1, 4);
+		levelHeight += Random.Range (1, 2);
 		DestroyAll();
 		MoveBackground();
 		SpawnLevel();
