@@ -14,7 +14,7 @@ public class PlayerControl : MonoBehaviour
 
 	public float moveForce = 365f;			// Amount of force added to move the player left and right.
 	public float maxSpeed = 5f;				// The fastest the player can travel in the x axis.
-        public int maxHealth = 100;
+    public int maxHealth = 100;
 
 	private bool stunned = false;
 	private float stunDuration;
@@ -63,7 +63,7 @@ public class PlayerControl : MonoBehaviour
             }
 
             if(!hasBonus)                    
-                maxSpeed = 1.25f * Mathf.Pow(1.1f , getTreasureCount());   
+                maxSpeed = 1.25f + getTreasureCount()/5;
 
             // If the player is changing direction (h has a different sign to velocity.x) or hasn't reached maxSpeed yet...
             if(h * rigidbody2D.velocity.x < maxSpeed) {
