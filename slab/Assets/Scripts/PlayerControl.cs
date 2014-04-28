@@ -63,7 +63,9 @@ public class PlayerControl : MonoBehaviour
             }
 
             if(!hasBonus)                    
-                maxSpeed = 1.25f + getTreasureCount()/5;
+                maxSpeed = 1.25f + getTreasureCount() / 5f;
+			if(maxSpeed > 2.5f)
+				maxSpeed = 2.5f
 
             // If the player is changing direction (h has a different sign to velocity.x) or hasn't reached maxSpeed yet...
             if(h * rigidbody2D.velocity.x < maxSpeed) {
