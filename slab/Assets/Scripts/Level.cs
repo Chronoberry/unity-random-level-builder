@@ -16,9 +16,12 @@ public class Level : MonoBehaviour {
 	public GameObject player;
     public GameObject rubberDuck; 
 	public GameObject background;
+	public GameObject octopus;
     public int maxDucks = 4;
+	public int maxOctopus = 1;
 
     private int currentDucks = 0;
+	private int currentOctopus = 0;
     private int[,] levelTiles;
     private GameObject[,] tiles;
     private const int EMPTY_TILE = 0;
@@ -80,7 +83,9 @@ public class Level : MonoBehaviour {
 	void SpawnLevel() {
 		//Create the level
 		currentDucks = 0;
+		currentOctopus = 0;
 		maxDucks = (levelNumber + 1) * 2;
+		maxOctopus = levelNumber / 2;
 		levelFill = Mathf.CeilToInt (levelNumber / 10f);
 		Debug.Log (levelFill);
 		levelTiles = new int[levelWidth, levelHeight];
@@ -107,6 +112,15 @@ public class Level : MonoBehaviour {
 				{
 					Instantiate(rubberDuck, new Vector3(row, col, 1), Quaternion.identity);
 					currentDucks += 1;
+				}
+				// Randomly spawn octopus
+				if(randomSpawnOctopus() &&
+				   currentOctopus < maxOctopus &&
+				   levelTiles[row, col] != FILLED_TILE &&
+				   levelTiles[row, col] != TRANSPARENT_TILE)
+				{
+					Instantiate(octopus, new Vector3(row, col, 1), Quaternion.identity);
+					currentOctopus += 1;
 				}
 			}
 		}
@@ -137,6 +151,15 @@ public class Level : MonoBehaviour {
 	bool randomSpawnDucks() {
 		bool spawn = false;
 		int random = Random.Range(0, levelNumber+1);
+		if (random < 1) {
+			spawn = true;
+		}
+		return spawn;
+	}
+
+	bool randomSpawnOctopus() {
+		bool spawn = false;
+		int random = Random.Range(0, levelNumber+5);
 		if (random < 1) {
 			spawn = true;
 		}
