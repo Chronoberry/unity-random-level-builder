@@ -156,8 +156,7 @@ public class Level : MonoBehaviour {
         }
         return spawn;
     }
-
-<<<<<<< HEAD
+	
 	bool randomSpawnOctopus() {
 		bool spawn = false;
 		int random = Random.Range(0, levelNumber+5);
@@ -188,30 +187,6 @@ public class Level : MonoBehaviour {
 			}
 		}
 	}
-=======
-    void DestroyAll() {
-        object[] allObjects = Resources.FindObjectsOfTypeAll(typeof(GameObject)) ;
-        foreach (object thisObject in allObjects) {
-            if (((GameObject)thisObject).activeInHierarchy) {
-                if (((GameObject)thisObject).tag != "LevelBuilder" && 
-                    ((GameObject)thisObject).tag != "MainCamera" &&
-                    ((GameObject)thisObject).tag != "Player" && 
-                    ((GameObject)thisObject).tag != "Background" && 
-                    ((GameObject)thisObject).tag != "Boat" &&
-                    ((GameObject)thisObject).tag != "SoundManager")
-                {
-                    Debug.Log(((GameObject)thisObject).ToString());
-                    try {
-                            Debug.Log(((GameObject)thisObject).GetComponent("MessengerHelper").ToString());
-                    }
-                    catch (System.Exception e) {
-                            Destroy((GameObject)thisObject);
-                    }
-                }
-            }
-        }
-    }
->>>>>>> e19349f4c524513b4ebcdc9795a3eb2224a5f5fe
 
     public int getLevelHeight() {
         return this.levelHeight;
