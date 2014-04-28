@@ -94,7 +94,7 @@ public class Level : MonoBehaviour {
 		for (int col = 0; col < levelHeight; col++) {
 			for(int row = 0; row < levelWidth; row++) {
 				// Randomly mark tile as filled
-				if(levelTiles[row, col] != FILLED_TILE && levelTiles[row, col] != TRANSPARENT_TILE) {
+				if(levelTiles[row, col] != FILLED_TILE && levelTiles[row, col] != TRANSPARENT_TILE && col != levelHeight-2) {
 					levelTiles[row, col] = randomFillTile ();
 				}
 				// Create game objects for each filled tile
