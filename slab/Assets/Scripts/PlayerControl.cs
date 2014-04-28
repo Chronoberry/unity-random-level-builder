@@ -50,6 +50,7 @@ public class PlayerControl : MonoBehaviour
            // Cache the horizontal input.
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
+			bool facingLeft = !facingRight;
 
             //Handle being stunned
             if(stunned){
@@ -96,7 +97,6 @@ public class PlayerControl : MonoBehaviour
             else if(h < 0 && facingRight) {
                 FlipPlayer();
             }
-
 	}
 
 	void FlipPlayer () {
