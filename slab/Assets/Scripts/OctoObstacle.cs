@@ -4,7 +4,7 @@ using System.Collections;
 public class OctoObstacle : MonoBehaviour {
 
     public float stunDuration = 2000f;
-    public int damage = 10;
+    public int damage = 2;
     private ParticleSystem ps;
 
     void OnTriggerEnter2D(Collider2D col) {

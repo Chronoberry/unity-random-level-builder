@@ -14,7 +14,7 @@ public class PlayerControl : MonoBehaviour
 
 	public float moveForce = 365f;			// Amount of force added to move the player left and right.
 	public float maxSpeed = 5f;				// The fastest the player can travel in the x axis.
-        public int maxHealth = 100;
+	public int maxHealth = 100;
 
 	private bool stunned = false;
 	private float stunDuration;
@@ -23,12 +23,12 @@ public class PlayerControl : MonoBehaviour
 	private List<GameObject> food;
 	private int currentHealth;
 
-        //Player bonus
-        private int currentBonus = 0;
-        private int nextBonus = 5;
-        private float maxBonusDuration = 5f;
-        private float bonusDuration = 5f;
-        private bool hasBonus = false;
+	//Player bonus
+	private int currentBonus = 0;
+	private int nextBonus = 5;
+	private float maxBonusDuration = 5f;
+	private float bonusDuration = 5f;
+	private bool hasBonus = false;
 	private float timer = 1.0f;
 	void Start() {
 	}
@@ -129,7 +129,7 @@ public class PlayerControl : MonoBehaviour
         public void checkForBonus(){
             if(currentBonus >= nextBonus){
                 //Reset the current bonus, set the bonus state, increase next bonus
-                Messenger.Broadcast("bonus speed");
+                //Messenger.Broadcast("bonus speed");
                 currentBonus = 0;
                 hasBonus = true;
                 nextBonus += Random.Range(1, 6);
@@ -197,8 +197,20 @@ public class PlayerControl : MonoBehaviour
         }
 
         public void takeDamage(int damage){
-	    Messenger.Broadcast("take damage");
-            currentHealth -= damage;
+	    	Messenger.Broadcast("take damage");
+			int counter = 0;
+			foreach(GameObject duck in treasureChests){
+				if(counter == damage)
+					break;
+
+				CollectableCollision duckScript = duck.GetComponent<CollectableCollision>();
+				duckScript.Die();
+				counter++;
+			}
+			treasureChests.RemoveAll(delegate(GameObject duck){
+				return duck.GetComponent<CollectableCollision>().isDead();
+			});
+            //currentHealth -= damage;
         }
 
         public void resetHealth(){
