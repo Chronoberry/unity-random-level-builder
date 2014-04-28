@@ -14,21 +14,21 @@ public class PlayerControl : MonoBehaviour
 
 	public float moveForce = 365f;			// Amount of force added to move the player left and right.
 	public float maxSpeed = 5f;				// The fastest the player can travel in the x axis.
-        public int maxHealth = 100;
+    public int maxHealth = 100;
 
-        private bool stunned = false;
-        private float stunDuration;
-        private float oldMass = 0;
-        private List<GameObject> treasureChests;
-        private List<GameObject> food;
+	private bool stunned = false;
+	private float stunDuration;
+	private float oldMass = 0;
+	private List<GameObject> treasureChests;
+	private List<GameObject> food;
 	private int currentHealth;
 
-        //Player bonus
-        private int currentBonus = 0;
-        private int nextBonus = 5;
-        private float maxBonusDuration = 4f;
-        private float bonusDuration = 4f;
-        private bool hasBonus = false;
+	//Player bonus
+	private int currentBonus = 0;
+	private int nextBonus = 5;
+	private float maxBonusDuration = 4f;
+	private float bonusDuration = 4f;
+	private bool hasBonus = false;
 	void Start() {
 	}
 
@@ -42,6 +42,7 @@ public class PlayerControl : MonoBehaviour
 		checkForDeath();
         checkForStun(); 
         checkForBonus();
+
 	}
 	
 	void FixedUpdate (){

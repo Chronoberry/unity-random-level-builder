@@ -41,10 +41,10 @@ public class Level : MonoBehaviour {
 	
 	void LevelUp() {
 		levelNumber++;
-		levelWidth += Random.Range (1, 4);
-		levelHeight += Random.Range (1, 4);
+		levelWidth += Random.Range (1, 3);
+		levelHeight += Random.Range (1, 3);
 		DestroyAll();
-		SpawnBackground ();
+		MoveBackground();
 		SpawnLevel();
         MoveBoat();
 		MovePlayer();
@@ -55,14 +55,17 @@ public class Level : MonoBehaviour {
 		background = (GameObject)Instantiate(background, backgroundPosition, Quaternion.identity);
 	}
 
+	void MoveBackground() {
+		background.transform.position = new Vector3(levelWidth * 0.5f, levelHeight-1.5f, 0f);
+	}
+
 	void SpawnBoat() {
 		Vector3 boatStartPosition = new Vector3(levelWidth * 0.5f, levelHeight-1, 0f);
 		boat = (GameObject)Instantiate(boat, boatStartPosition, Quaternion.identity);
 	}
 
-    void MoveBoat() {
-	    Vector3 boatStartPosition = new Vector3(levelWidth * 0.5f, levelHeight-1, 0f);
-        boat.transform.position = boatStartPosition; 
+    void MoveBoat() {  
+		boat.transform.position = new Vector3(levelWidth * 0.5f, levelHeight-1, 0f);
   	}
 
 	void SpawnPlayer() {
@@ -71,14 +74,15 @@ public class Level : MonoBehaviour {
 	}
 
 	void MovePlayer() {
-		Vector3 playerStartPosition = new Vector3(levelWidth * 0.5f, levelHeight-3, 0f);
-		player.transform.position = playerStartPosition; 
+		player.transform.position = new Vector3(levelWidth * 0.5f, levelHeight-3, 0f);
 	}
 
 	void SpawnLevel() {
 		//Create the level
+		currentDucks = 0;
 		maxDucks = (levelNumber + 1) * 2;
-		levelFill = Mathf.CeilToInt (levelNumber / 10);
+		levelFill = Mathf.CeilToInt (levelNumber / 10f);
+		Debug.Log (levelFill);
 		levelTiles = new int[levelWidth, levelHeight];
 		levelTiles = TemplateLevel();
 		tiles = new GameObject[levelWidth, levelHeight];
@@ -101,7 +105,7 @@ public class Level : MonoBehaviour {
 				   levelTiles[row, col] != FILLED_TILE &&
 				   levelTiles[row, col] != TRANSPARENT_TILE)
 				{
-					rubberDuck = (GameObject)Instantiate(rubberDuck, new Vector3(row, col, 1), Quaternion.identity);
+					Instantiate(rubberDuck, new Vector3(row, col, 1), Quaternion.identity);
 					currentDucks += 1;
 				}
 			}
@@ -146,6 +150,7 @@ public class Level : MonoBehaviour {
 				if (((GameObject)thisObject).tag != "LevelBuilder" && 
 				    ((GameObject)thisObject).tag != "MainCamera" &&
 				    ((GameObject)thisObject).tag != "Player" && 
+				    ((GameObject)thisObject).tag != "Background" && 
 				    ((GameObject)thisObject).tag != "Boat")
 				{
 					Debug.Log(((GameObject)thisObject).ToString());
