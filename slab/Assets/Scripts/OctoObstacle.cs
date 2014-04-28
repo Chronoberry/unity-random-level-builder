@@ -9,7 +9,7 @@ public class OctoObstacle : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col) {
         if (col.gameObject.tag == "Player") {
-            col.gameObject.GetComponent<PlayerControl>().stunPlayer(stunDuration);
+            //col.gameObject.GetComponent<PlayerControl>().stunPlayer(stunDuration);
             col.gameObject.GetComponent<PlayerControl>().takeDamage(damage);
             ps.Emit(100);
         }
