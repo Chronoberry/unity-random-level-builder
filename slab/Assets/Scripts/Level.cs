@@ -13,15 +13,15 @@ public class Level : MonoBehaviour {
     public GameObject tileSprite;
     public GameObject transparentSprite;
     public GameObject boat; 
-	public GameObject player;
+    public GameObject player;
     public GameObject rubberDuck; 
-	public GameObject background;
-	public GameObject octopus;
+    public GameObject background;
+    public GameObject octopus;
     public int maxDucks = 4;
-	public int maxOctopus = 1;
+    public int maxOctopus = 1;
 
     private int currentDucks = 0;
-	private int currentOctopus = 0;
+    private int currentOctopus = 0;
     private int[,] levelTiles;
     private GameObject[,] tiles;
     private const int EMPTY_TILE = 0;
@@ -84,7 +84,7 @@ public class Level : MonoBehaviour {
 		//Create the level
 		currentDucks = 0;
 		currentOctopus = 0;
-		maxDucks = (levelNumber + 1) * 2;
+		maxDucks = (levelNumber + 1) * Random.Range(2, 6);
 		maxOctopus = levelNumber / 2;
 		levelFill = Mathf.CeilToInt (levelNumber / 10f);
 		Debug.Log (levelFill);
@@ -203,5 +203,9 @@ public class Level : MonoBehaviour {
     }
 
     void OnGUI() {
+    }
+
+    public int getCurrentDucks(){
+        return currentDucks;
     }
 }
