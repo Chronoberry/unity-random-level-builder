@@ -110,7 +110,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Size: {x: 650, y: 200}
+  m_Size: {x: 550, y: 200}
   m_Center: {x: 50, y: 30}
 --- !u!114 &11400000
 MonoBehaviour:

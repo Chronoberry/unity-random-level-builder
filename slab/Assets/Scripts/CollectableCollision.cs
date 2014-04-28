@@ -10,6 +10,8 @@ public class CollectableCollision : MonoBehaviour {
 	private bool facingRight = true;
 	private bool dead = false;
 	private float deathTime = 1f;
+	private bool isFish = false;
+	private bool runAway = false;
 	
 	public Sprite alternate;
 
@@ -18,18 +20,29 @@ public class CollectableCollision : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D col){
          
         if (col.gameObject.tag == "Player"){
-        	player = col.gameObject.GetComponent<PlayerControl>();
-            player.pickupCollectible(this.gameObject);
-            followPlayer = true;
-			this.collider2D.enabled = false;
-            ps.Stop();
+			if(!isFish){
+	        	player = col.gameObject.GetComponent<PlayerControl>();
+	            player.pickupCollectible(this.gameObject);
+	            followPlayer = true;
+				this.collider2D.enabled = false;
+	            ps.Stop();
+			} else {
+				runAway = true;
+				this.collider2D.enabled = false;
+				ps.Stop();
+			}
          }
 	}
 	// Use this for initialization
 	void Start () {
     	ps = GetComponent<ParticleSystem>();
 		renderer = GetComponent<SpriteRenderer>();
-		if(Random.Range(0, 10) < 5){
+		Yolo ();
+	}
+
+	void Yolo(){
+		if(Random.Range(0, 10) < 3){
+			isFish = true;
 			renderer.sprite = alternate;
 		}
 	}
@@ -40,7 +53,8 @@ public class CollectableCollision : MonoBehaviour {
 	    if(followPlayer){
 	        //transform.position = player.transform.position;
 	    } else {
-			ps.Emit(1);
+			if(!runAway)
+				ps.Emit(1);
 	    }
 
 		if(dead){
@@ -54,7 +68,7 @@ public class CollectableCollision : MonoBehaviour {
 	}
 
         void FixedUpdate(){
-            if(followPlayer){
+            if(followPlayer && !isFish){
                 Vector3 followVector = 5f * (player.transform.position - transform.position);
                 rigidbody2D.AddForce(new Vector2( followVector.x + ( 7f * Random.Range(-1f, 1f)), followVector.y + (7f * Random.Range(-1f, 1f))) );
 				float flipThreshold = 0.5f;
@@ -65,9 +79,15 @@ public class CollectableCollision : MonoBehaviour {
                     FlipMe();
                 }
 
+
             }
 			if(dead){
 				rigidbody2D.AddForce(Vector2.up * 4);
+			}
+
+			if(runAway){
+				rigidbody2D.AddForce(Vector2.right * 15);
+
 			}
         }
 
@@ -96,9 +116,13 @@ public class CollectableCollision : MonoBehaviour {
 		transform.localScale = theScale;
 		this.collider2D.enabled = true;
 		dead = false;
+		Yolo();
 	}
 
 	public bool isDead(){
 		return dead;
+	}
+	public bool isFishy(){
+		return isFish;
 	}
 }

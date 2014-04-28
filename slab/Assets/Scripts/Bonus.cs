@@ -19,6 +19,6 @@ public class Bonus : MonoBehaviour {
             if(uiText == null)
                 uiText = transform.root.GetComponent<GUIText>();
 	
-            uiText.text = player.getTreasureCount() + " / " + GameObject.FindGameObjectWithTag("LevelBuilder").GetComponent<Level>().getCurrentDucks();
+            uiText.text = player.getProgress() + " / " + GameObject.FindGameObjectWithTag("LevelBuilder").GetComponent<Level>().getWinCondition();
 	}
 }

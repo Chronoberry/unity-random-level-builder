@@ -22,14 +22,10 @@ public class PlayerControl : MonoBehaviour
 	private List<GameObject> treasureChests;
 	private List<GameObject> food;
 	private int currentHealth;
-
-	//Player bonus
-	private int currentBonus = 0;
-	private int nextBonus = 5;
-	private float maxBonusDuration = 5f;
-	private float bonusDuration = 5f;
-	private bool hasBonus = false;
+	private int progress;
 	private float timer = 1.0f;
+
+
 	void Start() {
 	}
 
@@ -42,7 +38,6 @@ public class PlayerControl : MonoBehaviour
 	void Update() {
             checkForDeath();
             checkForStun(); 
-            checkForBonus();
             //loseHealth();
 	}
 	
@@ -63,10 +58,10 @@ public class PlayerControl : MonoBehaviour
                 }
             }
 
-            if(!hasBonus)                    
-                maxSpeed = 1.25f + getTreasureCount() / 5f;
+                                
+            maxSpeed = 1.25f + getTreasureCount() / 5f;
 			if (maxSpeed > 2.5f)
-			maxSpeed = 2.5f;
+				maxSpeed = 2.5f;
 
             // If the player is changing direction (h has a different sign to velocity.x) or hasn't reached maxSpeed yet...
             if(h * rigidbody2D.velocity.x < maxSpeed) {
@@ -116,35 +111,14 @@ public class PlayerControl : MonoBehaviour
             }
 	}
 
-        public void checkForStun(){
-            if(stunned) {
-                if(stunDuration < 0){
-                    stunned = false;
-                    rigidbody2D.mass = oldMass;
-                    oldMass = 0;
-                } else {
-                    stunDuration -= Time.deltaTime;
-                }
-            }
-        }
-
-        public void checkForBonus(){
-            if(currentBonus >= nextBonus){
-                //Reset the current bonus, set the bonus state, increase next bonus
-                //Messenger.Broadcast("bonus speed");
-                currentBonus = 0;
-                hasBonus = true;
-                nextBonus += Random.Range(1, 6);
-                maxBonusDuration += 1f;
-                bonusDuration = maxBonusDuration;
-            }
- 
-            if(hasBonus){
-                if(bonusDuration < 0){
-                    hasBonus = false;
-                    maxSpeed = maxSpeed  / 3;
-                } else {
-                    bonusDuration -= Time.deltaTime;
+	public void checkForStun(){
+	    if(stunned) {
+	        if(stunDuration < 0){
+	            stunned = false;
+	            rigidbody2D.mass = oldMass;
+	            oldMass = 0;
+	        } else {
+	            stunDuration -= Time.deltaTime;
 	        }
 	    }
 	}
@@ -162,15 +136,16 @@ public class PlayerControl : MonoBehaviour
 	    stunned = true;
 	    stunDuration = duration;
 	}
-        public void pickupCollectible(GameObject collectible){
-            if (collectible.tag == "Treasure"){
-                Messenger.Broadcast("pickup treasure");
-                treasureChests.Add(collectible);
-                currentBonus += 1; 
-            } 
-            if (collectible.tag == "Food"){
-                food.Add(collectible);
-            }
+	public void pickupCollectible(GameObject collectible){
+	    if (collectible.tag == "Treasure"){
+	        Messenger.Broadcast("pickup treasure");
+			if(! collectible.GetComponent<CollectableCollision>().isFishy()){
+	        	treasureChests.Add(collectible);
+			}
+	    } 
+	    if (collectible.tag == "Food"){
+	        food.Add(collectible);
+	    }
 	}
 	public int getTreasureCount(){
 	    return treasureChests.Count;
@@ -181,30 +156,24 @@ public class PlayerControl : MonoBehaviour
 		if (treasureCount > 0) {
 			this.score += treasureCount*100 + (int)Mathf.Pow(treasureCount-1, 2)*10;
                 foreach(GameObject treasure in treasureChests){
+					progress += 1;
                     Destroy(treasure);
                 }
                 treasureChests.RemoveAll(delegate(GameObject treasure){
                     return treasure.tag == "Treasure";
                 
                 });
-            }
+			 
+    	}
 	}
 
-        public int getCurrentBonusCount(){
-            return currentBonus;
-        }
-
-        public int getNextBonusRequirement(){
-            return nextBonus;
-        }
-
-        public void takeDamage(int damage){
+	public void takeDamage(int damage){
 	    	Messenger.Broadcast("take damage");
 			int counter = 0;
 			foreach(GameObject duck in treasureChests){
 				if(counter == damage)
 					break;
-
+	
 				CollectableCollision duckScript = duck.GetComponent<CollectableCollision>();
 				duckScript.Die();
 				counter++;
@@ -212,18 +181,26 @@ public class PlayerControl : MonoBehaviour
 			treasureChests.RemoveAll(delegate(GameObject duck){
 				return duck.GetComponent<CollectableCollision>().isDead();
 			});
-            //currentHealth -= damage;
-        }
+	    //currentHealth -= damage;
+	}
+	
+	public void resetHealth(){
+	    currentHealth = maxHealth;
+	}
+	
+	public int getCurrentHealth(){
+	    return currentHealth;
+	}
+	
+	public int getScore(){
+	    return score;
+	}
 
-        public void resetHealth(){
-            currentHealth = maxHealth;
-        }
+	public int getProgress(){
+		return progress;
+	}
 
-        public int getCurrentHealth(){
-            return currentHealth;
-        }
-
-        public int getScore(){
-            return score;
-        }
+	public void resetProgress(){
+		progress = 0;
+	}
 }
