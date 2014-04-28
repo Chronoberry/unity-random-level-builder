@@ -47,10 +47,10 @@ MonoBehaviour:
   tileSprite: {fileID: 100000, guid: 2158e200103d046f7a0e0046dc23fdc5, type: 2}
   transparentSprite: {fileID: 100000, guid: 1101821ae47b7408cb2dcb7c1b275654, type: 2}
   boat: {fileID: 100000, guid: 496222f2326575b46893ac83cca4180d, type: 2}
+  player: {fileID: 100000, guid: eb65a12c0f619441e9ca6833ac46d09f, type: 2}
   rubberDuck: {fileID: 100000, guid: 9876d471111f34d26935f043c0f44bd0, type: 2}
   background: {fileID: 100000, guid: 99fba1b3228c9457a8ddfbc8e1e99910, type: 2}
   maxDucks: 4
-
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

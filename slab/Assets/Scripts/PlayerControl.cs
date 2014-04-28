@@ -16,19 +16,22 @@ public class PlayerControl : MonoBehaviour
 	public float maxSpeed = 5f;				// The fastest the player can travel in the x axis.
         public int maxHealth = 100;
 
-        private bool stunned = false;
-        private float stunDuration;
-        private float oldMass = 0;
-        private List<GameObject> treasureChests;
-        private List<GameObject> food;
+	private bool stunned = false;
+	private float stunDuration;
+	private float oldMass = 0;
+	private List<GameObject> treasureChests;
+	private List<GameObject> food;
 	private int currentHealth;
 
         //Player bonus
         private int currentBonus = 0;
         private int nextBonus = 5;
-        private float maxBonusDuration = 4f;
-        private float bonusDuration = 4f;
+        private float maxBonusDuration = 5f;
+        private float bonusDuration = 5f;
         private bool hasBonus = false;
+	private float timer = 1.0f;
+	void Start() {
+	}
 
 	void Awake(){
             treasureChests = new List<GameObject>();
@@ -36,9 +39,11 @@ public class PlayerControl : MonoBehaviour
             currentHealth = maxHealth;
 	}
 
-	void Update(){
+	void Update() {
+            checkForDeath();
             checkForStun(); 
             checkForBonus();
+            //loseHealth();
 	}
 	
 	void FixedUpdate (){
@@ -102,6 +107,13 @@ public class PlayerControl : MonoBehaviour
             transform.localScale = theScale;
 	}
 
+	void checkForDeath(){
+            if(currentHealth <= 0) {
+                currentHealth = 100;
+                Messenger.Broadcast("respawn player");
+            }
+	}
+
         public void checkForStun(){
             if(stunned) {
                 if(stunDuration < 0){
@@ -117,12 +129,13 @@ public class PlayerControl : MonoBehaviour
         public void checkForBonus(){
             if(currentBonus >= nextBonus){
                 //Reset the current bonus, set the bonus state, increase next bonus
+                Messenger.Broadcast("bonus speed");
                 currentBonus = 0;
                 hasBonus = true;
                 nextBonus += Random.Range(1, 6);
                 maxBonusDuration += 1f;
                 bonusDuration = maxBonusDuration;
-                maxSpeed = maxSpeed * 3;
+                maxSpeed = 6f;
             }
  
             if(hasBonus){
@@ -131,34 +144,41 @@ public class PlayerControl : MonoBehaviour
                     maxSpeed = maxSpeed  / 3;
                 } else {
                     bonusDuration -= Time.deltaTime;
+	        }
+	    }
+	}
 
-                }
-            }
-        }
+	public void loseHealth() {
+		timer -= Time.deltaTime;
+		if (timer < 0) {
+			currentHealth--;
+			timer = 1.0f;
+			Debug.Log(currentHealth);
+		}
+	}
 
-        public void stunPlayer(float duration){
-            stunned = true;
-            stunDuration = duration;
-        }
-
+	public void stunPlayer(float duration){
+	    stunned = true;
+	    stunDuration = duration;
+	}
         public void pickupCollectible(GameObject collectible){
             if (collectible.tag == "Treasure"){
+                Messenger.Broadcast("pickup treasure");
                 treasureChests.Add(collectible);
                 currentBonus += 1; 
             } 
             if (collectible.tag == "Food"){
                 food.Add(collectible);
             }
-
-        }
-        public int getTreasureCount(){
-            return treasureChests.Count;
-        }
-
+	}
+	public int getTreasureCount(){
+	    return treasureChests.Count;
+	}
 
 	public void dropOffCollectibles() {
-            if (getTreasureCount() > 0) {
-                this.score += getTreasureCount();
+		int treasureCount = getTreasureCount ();
+		if (treasureCount > 0) {
+			this.score += treasureCount*100 + (int)Mathf.Pow(treasureCount-1, 3)*10;
                 foreach(GameObject treasure in treasureChests){
                     Destroy(treasure);
                 }
