@@ -63,7 +63,7 @@ public class PlayerControl : MonoBehaviour
             }
 
             if(!hasBonus)                    
-                maxSpeed = 1.25f * Mathf.Pow(.85f , getTreasureCount());   
+                maxSpeed = 1.25f * Mathf.Pow(1.1f , getTreasureCount());   
 
             // If the player is changing direction (h has a different sign to velocity.x) or hasn't reached maxSpeed yet...
             if(h * rigidbody2D.velocity.x < maxSpeed) {
@@ -135,7 +135,6 @@ public class PlayerControl : MonoBehaviour
                 nextBonus += Random.Range(1, 6);
                 maxBonusDuration += 1f;
                 bonusDuration = maxBonusDuration;
-                maxSpeed = 6f;
             }
  
             if(hasBonus){

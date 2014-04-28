@@ -6,6 +6,8 @@ public class CollectableCollision : MonoBehaviour {
         private bool followPlayer = false;
         private PlayerControl player;
         private ParticleSystem ps;
+        private bool following = false;
+        private bool facingRight = true;
 
 	void OnCollisionEnter2D(Collision2D col){
          
@@ -13,7 +15,7 @@ public class CollectableCollision : MonoBehaviour {
         	player = col.gameObject.GetComponent<PlayerControl>();
             player.pickupCollectible(this.gameObject);
             followPlayer = true;
-            Destroy(rigidbody2D);
+            //Destroy(rigidbody2D);
             Destroy(this.collider2D);
             ps.Stop();
          }
@@ -28,10 +30,34 @@ public class CollectableCollision : MonoBehaviour {
 	void Update () {
     
             if(followPlayer){
-                transform.position = player.transform.position;
+                //transform.position = player.transform.position;
             } else {
                 ps.Emit(2);
             }
 	
+	}
+
+        void FixedUpdate(){
+            if(followPlayer){
+                Vector3 followVector = player.transform.position - transform.position;
+                rigidbody2D.AddForce(new Vector2( followVector.x + ( 5f * Random.Range(-1f, 1f)), followVector.y + (5f * Random.Range(-1f, 1f))) );
+                if(rigidbody2D.velocity.x > 0.1 && !facingRight) {
+                    FlipMe();
+                }
+                else if(rigidbody2D.velocity.x < -0.1 && facingRight) {
+                    FlipMe();
+                }
+
+            }
+        }
+
+        void FlipMe () {
+            // Switch the way the player is labelled as facing.
+            facingRight = !facingRight;
+
+            // Multiply the player's x local scale by -1.
+            Vector3 theScale = transform.localScale;
+            theScale.x *= -1;
+            transform.localScale = theScale;
 	}
 }
