@@ -15,10 +15,13 @@ public class Level : MonoBehaviour {
     public GameObject boat; 
 	public GameObject player;
     public GameObject rubberDuck; 
-    public GameObject background;
+	public GameObject background;
+	public GameObject octopus;
     public int maxDucks = 4;
+	public int maxOctopus = 1;
 
     private int currentDucks = 0;
+	private int currentOctopus = 0;
     private int[,] levelTiles;
     private GameObject[,] tiles;
     private const int EMPTY_TILE = 0;
@@ -80,7 +83,9 @@ public class Level : MonoBehaviour {
 	void SpawnLevel() {
 		//Create the level
 		currentDucks = 0;
+		currentOctopus = 0;
 		maxDucks = (levelNumber + 1) * 2;
+		maxOctopus = levelNumber / 2;
 		levelFill = Mathf.CeilToInt (levelNumber / 10f);
 		Debug.Log (levelFill);
 		levelTiles = new int[levelWidth, levelHeight];
@@ -89,7 +94,7 @@ public class Level : MonoBehaviour {
 		for (int col = 0; col < levelHeight; col++) {
 			for(int row = 0; row < levelWidth; row++) {
 				// Randomly mark tile as filled
-				if(levelTiles[row, col] != FILLED_TILE && levelTiles[row, col] != TRANSPARENT_TILE) {
+				if(levelTiles[row, col] != FILLED_TILE && levelTiles[row, col] != TRANSPARENT_TILE && col != levelHeight-2) {
 					levelTiles[row, col] = randomFillTile ();
 				}
 				// Create game objects for each filled tile
@@ -107,6 +112,15 @@ public class Level : MonoBehaviour {
 				{
 					Instantiate(rubberDuck, new Vector3(row, col, 1), Quaternion.identity);
 					currentDucks += 1;
+				}
+				// Randomly spawn octopus
+				if(randomSpawnOctopus() &&
+				   currentOctopus < maxOctopus &&
+				   levelTiles[row, col] != FILLED_TILE &&
+				   levelTiles[row, col] != TRANSPARENT_TILE)
+				{
+					Instantiate(octopus, new Vector3(row, col, 1), Quaternion.identity);
+					currentOctopus += 1;
 				}
 			}
 		}
@@ -142,29 +156,37 @@ public class Level : MonoBehaviour {
         }
         return spawn;
     }
+	
+	bool randomSpawnOctopus() {
+		bool spawn = false;
+		int random = Random.Range(0, levelNumber+5);
+		if (random < 1) {
+			spawn = true;
+		}
+		return spawn;
+	}
 
-    void DestroyAll() {
-        object[] allObjects = Resources.FindObjectsOfTypeAll(typeof(GameObject)) ;
-        foreach (object thisObject in allObjects) {
-            if (((GameObject)thisObject).activeInHierarchy) {
-                if (((GameObject)thisObject).tag != "LevelBuilder" && 
-                    ((GameObject)thisObject).tag != "MainCamera" &&
-                    ((GameObject)thisObject).tag != "Player" && 
-                    ((GameObject)thisObject).tag != "Background" && 
-                    ((GameObject)thisObject).tag != "Boat" &&
-                    ((GameObject)thisObject).tag != "SoundManager")
-                {
-                    Debug.Log(((GameObject)thisObject).ToString());
-                    try {
-                            Debug.Log(((GameObject)thisObject).GetComponent("MessengerHelper").ToString());
-                    }
-                    catch (System.Exception e) {
-                            Destroy((GameObject)thisObject);
-                    }
-                }
-            }
-        }
-    }
+	void DestroyAll() {
+		object[] allObjects = Resources.FindObjectsOfTypeAll(typeof(GameObject)) ;
+		foreach (object thisObject in allObjects) {
+			if (((GameObject)thisObject).activeInHierarchy) {
+				if (((GameObject)thisObject).tag != "LevelBuilder" && 
+				    ((GameObject)thisObject).tag != "MainCamera" &&
+				    ((GameObject)thisObject).tag != "Player" && 
+				    ((GameObject)thisObject).tag != "Background" && 
+				    ((GameObject)thisObject).tag != "Boat")
+				{
+					Debug.Log(((GameObject)thisObject).ToString());
+					try {
+						Debug.Log(((GameObject)thisObject).GetComponent("MessengerHelper").ToString());
+					}
+					catch (System.Exception e) {
+						Destroy((GameObject)thisObject);
+					}
+				}
+			}
+		}
+	}
 
     public int getLevelHeight() {
         return this.levelHeight;

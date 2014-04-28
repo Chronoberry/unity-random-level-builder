@@ -21,7 +21,6 @@ public class CollectableCollision : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
             ps = GetComponent<ParticleSystem>();
-	
 	}
 
 	// Update is called once per frame
