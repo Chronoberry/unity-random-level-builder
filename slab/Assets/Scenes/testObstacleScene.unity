@@ -182,6 +182,7 @@ MonoBehaviour:
   octopus: {fileID: 100000, guid: 3f3be53a7f36360498b446b97455eff6, type: 2}
   maxDucks: 4
   maxOctopus: 1
+  winScreen: {fileID: 2800000, guid: 6bbce84c6b6b843019272016e813e0e6, type: 3}
 --- !u!4 &134853945
 Transform:
   m_ObjectHideFlags: 0

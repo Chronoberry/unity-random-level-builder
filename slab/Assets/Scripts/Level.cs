@@ -19,6 +19,7 @@ public class Level : MonoBehaviour {
     public GameObject octopus;
     public int maxDucks = 4;
     public int maxOctopus = 1;
+	public Texture winScreen;
 
     private int currentDucks = 0;
     private int currentOctopus = 0;
@@ -27,9 +28,13 @@ public class Level : MonoBehaviour {
     private const int EMPTY_TILE = 0;
     private const int FILLED_TILE = 1;
     private const int TRANSPARENT_TILE = 2;
+	private int winCondition;
+	private float winScreenTimer = 5f;
+	private bool youWin;
 
 
     void Start() {
+		winCondition = Random.Range(30, 51);
         transform.position = new Vector3(-(levelWidth/2.0f), -(float)2*levelHeight, 0f);
         // Setup background, level, boat and player spawn points
             SpawnBackground();
@@ -42,15 +47,20 @@ public class Level : MonoBehaviour {
             Messenger.AddListener("respawn player", MovePlayer);
     }
 	
-	void LevelUp() {
-		levelNumber++;
-		levelWidth += Random.Range (1, 4);
-		levelHeight += Random.Range (1, 2);
-		DestroyAll();
-		MoveBackground();
-		SpawnLevel();
-                MoveBoat();
-		MovePlayer();
+	void LevelUp() {	
+		Debug.Log(player.GetComponent<PlayerControl>().getProgress() );
+		if(player.GetComponent<PlayerControl>().getProgress() >= winCondition){
+			youWin = true;
+		} else {
+			levelNumber++;
+			levelWidth += Random.Range (1, 4);
+			levelHeight += Random.Range (1, 2);
+			DestroyAll();
+			MoveBackground();
+			SpawnLevel();
+	        MoveBoat();
+			MovePlayer();
+		}
 	}
 
 	void SpawnBackground() {
@@ -100,6 +110,7 @@ public class Level : MonoBehaviour {
 				// Create game objects for each filled tile
 				if(levelTiles[row, col] == FILLED_TILE) {
 					tiles[row, col] = (GameObject)Instantiate(tileSprite, new Vector3(row, col, 1), Quaternion.identity);
+					tiles[row, col].transform.Rotate(0, 0, (Random.Range(0, 13)*37), Space.World);
 				}
 				else if(levelTiles[row, col] == TRANSPARENT_TILE) {
 					tiles[row, col] = (GameObject)Instantiate(transparentSprite, new Vector3(row, col, 1), Quaternion.identity);
@@ -200,12 +211,32 @@ public class Level : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+
+		if(youWin){
+			if(winScreenTimer < 0){
+				youWin = false;
+				winCondition += Random.Range( 1, 10 );
+				player.GetComponent<PlayerControl>().resetProgress();
+				SpawnLevel();
+				winScreenTimer = 5f;
+			} else {
+				winScreenTimer -= Time.deltaTime;
+
+			}
+		}
     }
 
     void OnGUI() {
+		if(youWin){
+			GUI.Box(new Rect(0, 0, 1136, 640), winScreen);
+		}
     }
 
     public int getCurrentDucks(){
         return currentDucks;
     }
+
+	public int getWinCondition(){
+		return winCondition;
+	}
 }
