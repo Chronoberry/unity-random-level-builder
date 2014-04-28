@@ -15,6 +15,7 @@ GameObject:
   - 58: {fileID: 5800000}
   - 198: {fileID: 19800000}
   - 199: {fileID: 19900000}
+  - 61: {fileID: 6100000}
   m_Layer: 0
   m_Name: OctoStun
   m_TagString: Enemy
@@ -69,9 +70,20 @@ CircleCollider2D:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Radius: .5
-  m_Center: {x: 0, y: 0}
+  m_IsTrigger: 1
+  m_Radius: 150
+  m_Center: {x: 0, y: 60}
+--- !u!61 &6100000
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Size: {x: 750, y: 230}
+  m_Center: {x: 48.1856689, y: 39.9900055}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
